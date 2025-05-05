@@ -8,5 +8,11 @@ namespace DaltonismoHWHAP
 {
     public class DTMain
     {
+        public CapturadorPantalla capturadorPantalla;
+        public DTMain()
+        {
+            capturadorPantalla = new CapturadorPantalla();
+        }
+
     }
 }
