@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CapturadorPantalla.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="DTMain.cs" />
+    <Compile Include="FiltroDaltonismo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

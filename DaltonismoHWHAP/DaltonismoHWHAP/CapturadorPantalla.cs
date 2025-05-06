@@ -10,27 +10,24 @@ namespace DaltonismoHWHAP
 {
     public class CapturadorPantalla
     {
-        Graphics graphics;
-
         public CapturadorPantalla()
         {
-
         }
-        public void captureScreen()
+
+        // Importante llamar posteriormente a Dispose del bitmap y de graphics
+        public Bitmap captureScreen()
         {
-            using (Bitmap bmp = new Bitmap(800, 600))
-            {
-                using (Graphics g = Graphics.FromImage(bmp))
-                {
-                    g.CopyFromScreen(0, 0, 0, 0, bmp.Size);
+            Bitmap bmp = new Bitmap(1920, 1080);
 
-                }
-
-                bmp.Save("testImage.png", ImageFormat.Png);
-            }
-
+            Graphics g = Graphics.FromImage(bmp);
+                
+            g.CopyFromScreen(0, 0, 0, 0, bmp.Size);
             
+            g.Dispose();
+
+            return bmp;
         }
+
     }
 
     

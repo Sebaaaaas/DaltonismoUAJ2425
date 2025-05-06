@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace DaltonismoHWHAP
 {
@@ -10,6 +12,7 @@ namespace DaltonismoHWHAP
     {
         private static DTMain instance = null;
         private CapturadorPantalla capturadorPantalla;
+        private FiltroDaltonismo filtroDaltonismo;
         private DTMain()
         {            
         }
@@ -23,13 +26,20 @@ namespace DaltonismoHWHAP
             instance = new DTMain();
 
             instance.capturadorPantalla = new CapturadorPantalla();
+            instance.filtroDaltonismo = new FiltroDaltonismo();
 
             return true;
         }
 
         public static void captureScreen()
         {
-            instance.capturadorPantalla.captureScreen();
+            Bitmap bmp = instance.capturadorPantalla.captureScreen();
+            bmp.Save("testImage.png", ImageFormat.Png);
+
+            instance.filtroDaltonismo.filtroTest(bmp);
+            bmp.Save("testImageColorblind.png", ImageFormat.Png);
+
+            bmp.Dispose();
         }
 
     }
