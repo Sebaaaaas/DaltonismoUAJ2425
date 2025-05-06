@@ -22,11 +22,11 @@ namespace DaltonismoHWHAP
             {
                 using (Graphics g = Graphics.FromImage(bmp))
                 {
-                    graphics.CopyFromScreen(0, 0, 0, 0, bmp.Size);
+                    g.CopyFromScreen(0, 0, 0, 0, bmp.Size);
 
                 }
 
-                bmp.Save("./", ImageFormat.Png);
+                bmp.Save("testImage.png", ImageFormat.Png);
             }
 
             

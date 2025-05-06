@@ -8,10 +8,28 @@ namespace DaltonismoHWHAP
 {
     public class DTMain
     {
-        public CapturadorPantalla capturadorPantalla;
-        public DTMain()
+        private static DTMain instance = null;
+        private CapturadorPantalla capturadorPantalla;
+        private DTMain()
+        {            
+        }
+
+        public static bool Init()
         {
-            capturadorPantalla = new CapturadorPantalla();
+            // No inicializamos si ya existe una instancia
+            if (instance != null)
+                return false;
+
+            instance = new DTMain();
+
+            instance.capturadorPantalla = new CapturadorPantalla();
+
+            return true;
+        }
+
+        public static void captureScreen()
+        {
+            instance.capturadorPantalla.captureScreen();
         }
 
     }
