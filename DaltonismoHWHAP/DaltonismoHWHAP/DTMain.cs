@@ -41,10 +41,40 @@ namespace DaltonismoHWHAP
             bmp.Save("testImage.png", ImageFormat.Png);
             Bitmap bmpAux = (Bitmap)bmp.Clone();
 
-            instance.filtroDaltonismo.filtroTest(bmp);
-            bmp.Save("testImageColorblind.png", ImageFormat.Png);
+            Bitmap bmpAuxProtanopia = (Bitmap)bmp.Clone();
+            Bitmap bmpAuxProtanomalia = (Bitmap)bmp.Clone();
+            Bitmap bmpAuxDeuteranopia = (Bitmap)bmp.Clone();
+            Bitmap bmpAuxDeuteranomalia = (Bitmap)bmp.Clone();
+            Bitmap bmpAuxTritanopia = (Bitmap)bmp.Clone();
+            Bitmap bmpAuxTritanomalia = (Bitmap)bmp.Clone();
+            Bitmap bmpAuxAcromatopia = (Bitmap)bmp.Clone();
+            Bitmap bmpAuxAcromatomalia = (Bitmap)bmp.Clone();
 
-            for(int i = 0; i < bmpAux.Height; i++)
+            instance.filtroDaltonismo.SimularFiltro(bmpAuxProtanopia, FiltroDaltonismo.Filtros.Protanopia);
+            bmpAuxProtanopia.Save("testImageColorblindProtanopia.png", ImageFormat.Png);
+
+            instance.filtroDaltonismo.SimularFiltro(bmpAuxProtanomalia, FiltroDaltonismo.Filtros.Protanomalia);
+            bmpAuxProtanomalia.Save("testImageColorblindProtanomalia.png", ImageFormat.Png);
+
+            instance.filtroDaltonismo.SimularFiltro(bmpAuxDeuteranopia, FiltroDaltonismo.Filtros.Deuteranopia);
+            bmpAuxDeuteranopia.Save("testImageColorblindDeuteranopia.png", ImageFormat.Png);
+
+            instance.filtroDaltonismo.SimularFiltro(bmpAuxDeuteranomalia, FiltroDaltonismo.Filtros.Deuteranomalia);
+            bmpAuxDeuteranomalia.Save("testImageColorblindDeuteranomalia.png", ImageFormat.Png);
+
+            instance.filtroDaltonismo.SimularFiltro(bmpAuxTritanopia, FiltroDaltonismo.Filtros.Tritanopia);
+            bmpAuxTritanopia.Save("testImageColorblindTritanopia.png", ImageFormat.Png);
+
+            instance.filtroDaltonismo.SimularFiltro(bmpAuxTritanomalia, FiltroDaltonismo.Filtros.Tritanomalia);
+            bmpAuxTritanomalia.Save("testImageColorblindTritanomalia.png", ImageFormat.Png);
+
+            instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatopia, FiltroDaltonismo.Filtros.Acromatopia);
+            bmpAuxAcromatopia.Save("testImageColorblindAcromatopia.png", ImageFormat.Png);
+
+            instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatomalia, FiltroDaltonismo.Filtros.Acromatomalia);
+            bmpAuxAcromatomalia.Save("testImageColorblindAcromatomalia.png", ImageFormat.Png);
+
+            for (int i = 0; i < bmpAux.Height; i++)
             {
                 for(int j = 0; j < bmpAux.Width; j++)
                 {

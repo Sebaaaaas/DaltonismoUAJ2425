@@ -17,6 +17,7 @@ namespace DaltonismoHWHAP
         // Importante llamar posteriormente a Dispose del bitmap y de graphics
         public Bitmap captureScreen()
         {
+
             Bitmap bmp = new Bitmap(1920, 1080);
 
             Graphics g = Graphics.FromImage(bmp);
