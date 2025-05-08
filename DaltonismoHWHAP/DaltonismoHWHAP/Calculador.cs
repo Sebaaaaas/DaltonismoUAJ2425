@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,10 +30,13 @@ namespace DaltonismoHWHAP
          *  - 2 - 10: Claramente perceptible
          *  - 11 - 49: Colores muy diferentes
          *  - 50+: Colores completamente distintos*/
+        private List<double> resultadosOriginal;
+        private List<double> resultadosImagenDalt;
 
         public Calculador()
         {
-
+            resultadosOriginal = new List<double>();
+            resultadosImagenDalt = new List<double>();
         }
 
         public double deltaE(Color c1, Color c2)
@@ -104,6 +108,80 @@ namespace DaltonismoHWHAP
             // - Si es mayor a 0.008856, se aplica raíz cúbica.
             // - Si no, se usa una línea tangente para evitar discontinuidades.
             return (n > 0.008856) ? Math.Pow(n, 1.0 / 3.0) : (7.787 * n) + (16.0 / 116.0);
+        }
+
+        public void gereraResults(ref Bitmap original,ref Bitmap imDalt, int tamMatriz)
+        {
+            int radius = tamMatriz / 2;
+            for (int i = 0; i < original.Height; i++)
+            {
+                for (int j = 0; j < original.Width; j++)
+                {
+                    
+                    Color origen1 = original.GetPixel(j, i);
+                    Color dalt1= imDalt.GetPixel(j, i);
+                    double sumDeltaE = 0;
+                    double sumDeltaEDalt = 0;
+                    int cont = 0;
+                    for(int k=i-radius; k<=i+radius; k++)
+                    {
+                        for(int l = j - radius; l <= j + radius; l++)
+                        {
+                            if(k==i && l == j||k<0||k>=original.Height||l<0||l>=original.Width)
+                            {
+                                continue;
+                            }
+                            sumDeltaE += deltaE(origen1, original.GetPixel(l,k));
+                            sumDeltaEDalt += deltaE(dalt1, imDalt.GetPixel(l,k));
+                            cont++;
+                        }
+                    }
+                    if (cont > 0)
+                    {
+                        resultadosOriginal.Add(sumDeltaE / cont);
+                        resultadosImagenDalt.Add(sumDeltaEDalt / cont);
+                    }
+
+                }
+            }
+            generateHeatMap(ref original,original.Width,original.Height,2.3);
+        }
+        private void generateHeatMap(ref Bitmap original, int width, int height, double umbral)
+        {
+            Bitmap baseImg = original;
+            Bitmap mapa = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(mapa))
+            {
+                g.DrawImage(baseImg, 0, 0); // Dibuja la imagen base
+            }
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int index = y * width + x;
+                    double deltaEOri = resultadosOriginal[index];
+                    double deltaEDalt = resultadosImagenDalt[index];
+
+                    // Si la diferencia es pequeña, probablemente se vea igual para una persona daltónica
+                    if (deltaEOri>=umbral && deltaEDalt< umbral)
+                    {
+                        // Pixel visible claramente
+                        Color rojoTransparente = Color.FromArgb(255, 255, 0, 0);
+                        mapa.SetPixel(x, y, rojoTransparente);
+                        
+
+                    }
+                    else
+                    {
+                        // Píxel poco visible, lo dejamos transparente 
+                        mapa.SetPixel(x, y, Color.Transparent);
+
+                    }
+                }
+            }
+
+            mapa.Save("HeatMap.png", ImageFormat.Png);
         }
     }
 }
