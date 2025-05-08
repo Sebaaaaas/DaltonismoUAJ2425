@@ -50,6 +50,7 @@
     <Compile Include="DTMain.cs" />
     <Compile Include="FiltroDaltonismo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SavedData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
