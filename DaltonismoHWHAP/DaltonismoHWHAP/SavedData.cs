@@ -36,7 +36,7 @@ namespace DaltonismoHWHAP {
 
         public void readFromFile()
         {
-            StreamReader sr = new StreamReader("/Assets/PosList.txt");
+            StreamReader sr = new StreamReader("PosList.txt");
             
             if (sr != null) { 
 
@@ -66,7 +66,7 @@ namespace DaltonismoHWHAP {
 
         public void writeToFile()
         {
-            StreamWriter sw = new StreamWriter("/Assets/PosList.txt");
+            StreamWriter sw = new StreamWriter("PosList.txt");
             PosGu posToSave=lista.First();
             Queue<PosGu> listarec = lista;
             while ((posToSave._x != lista.Last()._x)&& (posToSave._y != lista.Last()._y)
