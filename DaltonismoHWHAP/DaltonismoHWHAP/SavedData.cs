@@ -79,12 +79,14 @@ namespace DaltonismoHWHAP {
                 listarec.Dequeue();
                 posToSave = listarec.First();
             }
-            
-            //Last position
-            sw.WriteLine("newpos:");
-            sw.WriteLine(posToSave._x);
-            sw.WriteLine(posToSave._y);
-            sw.WriteLine(posToSave._z);
+            if (lista.Count > 0)
+            {
+                //Last position
+                sw.WriteLine("newpos:");
+                sw.WriteLine(posToSave._x);
+                sw.WriteLine(posToSave._y);
+                sw.WriteLine(posToSave._z);
+            }
 
             sw.Close();
         }
