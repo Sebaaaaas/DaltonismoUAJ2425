@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 
 namespace DaltonismoHWHAP {
-    public class SavedData {
+    internal class SavedData {
         public struct PosGu
         {
             public float _x;
@@ -61,7 +61,7 @@ namespace DaltonismoHWHAP {
                 }
                 sr.Close();
             }
-            //Leer el archivo diferenciando los espacios para las coordenadas y los saltos de linea para diferentes posiciones
+            
         }
 
         public void writeToFile()

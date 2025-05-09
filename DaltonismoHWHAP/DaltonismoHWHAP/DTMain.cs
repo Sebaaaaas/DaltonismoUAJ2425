@@ -14,6 +14,7 @@ namespace DaltonismoHWHAP
         private CapturadorPantalla capturadorPantalla;
         private FiltroDaltonismo filtroDaltonismo;
         private Calculador calculador;
+        private SavedData savedData;
        
         private DTMain()
         {            
@@ -30,6 +31,7 @@ namespace DaltonismoHWHAP
             instance.capturadorPantalla = new CapturadorPantalla();
             instance.filtroDaltonismo = new FiltroDaltonismo();
             instance.calculador = new Calculador();
+            instance.savedData = new SavedData();
            
 
             return true;
@@ -85,6 +87,25 @@ namespace DaltonismoHWHAP
             instance.calculador.gereraResults(ref bmpAux, ref bmpAuxDeuteranopia, 3);
             //instance.generateHeatMap(ref bmpAux,ref instance.resultados, bmpAux.Width, bmpAux.Height, 2.3);
             bmp.Dispose();
+        }
+
+        public static void readFromFile()
+        {
+            instance.savedData.readFromFile();
+        }
+
+        public static void writeToFile()
+        {
+            instance.savedData.writeToFile();
+        }
+
+        public static void addPos(float x, float y, float z)
+        {
+            instance.savedData.addToQueue(x, y, z);
+        }
+        public static void ClearList()
+        {
+            instance.savedData.clearQueue();
         }
         
 
