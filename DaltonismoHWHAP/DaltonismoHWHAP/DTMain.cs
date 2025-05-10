@@ -89,9 +89,9 @@ namespace DaltonismoHWHAP
             bmp.Dispose();
         }
 
-        public static void readFromFile()
+        public static bool readFromFile()
         {
-            instance.savedData.readFromFile();
+            return instance.savedData.readFromFile();
         }
 
         public static void writeToFile()
@@ -107,7 +107,15 @@ namespace DaltonismoHWHAP
         {
             instance.savedData.clearQueue();
         }
-        
+        public static SavedData.PosGu returnValOfList(int val)
+        {
+            return instance.savedData.returnValueAt(val);
+        }
+        public static int listSize()
+        {
+            return instance.savedData.getListSize();
+        }
+
 
     }
 }

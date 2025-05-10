@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 
 namespace DaltonismoHWHAP {
-    internal class SavedData {
+    public class SavedData {
         public struct PosGu
         {
             public float _x;
@@ -34,7 +34,7 @@ namespace DaltonismoHWHAP {
             lista.Clear();
         }
 
-        public void readFromFile()
+        public bool readFromFile()
         {
             StreamReader sr = new StreamReader("PosList.txt");
             
@@ -43,11 +43,14 @@ namespace DaltonismoHWHAP {
                 string coord;
 
                 coord = sr.ReadLine();
+                if(coord == null)
+                {
+                    return false; //Si está vacío devuelve false
+                }
                 float nx, ny, nz;
                 while (coord != null)
                 {
-                    int i = 0;
-                    string x, y, z;
+                    
                     if (coord == "newpos:")
                     {
                         nx=float.Parse(sr.ReadLine());
@@ -61,6 +64,11 @@ namespace DaltonismoHWHAP {
                 }
                 sr.Close();
             }
+            else
+            {
+                return false; //Si no existe devuelve false
+            }
+            return true;
             
         }
 
@@ -89,6 +97,23 @@ namespace DaltonismoHWHAP {
             }
 
             sw.Close();
+        }
+
+        public PosGu returnValueAt(int elem)
+        {
+            if (elem < lista.Count && elem >= 0)
+            {
+                return lista.ElementAt(elem);
+            }
+            else
+            {
+                return lista.First();
+            }
+        }
+
+        public int getListSize()
+        {
+            return lista.Count;
         }
 
         
