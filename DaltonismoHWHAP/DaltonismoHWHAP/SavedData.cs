@@ -75,17 +75,17 @@ namespace DaltonismoHWHAP {
         public void writeToFile()
         {
             StreamWriter sw = new StreamWriter("PosList.txt");
-            PosGu posToSave=lista.First();
-            Queue<PosGu> listarec = lista;
-            while ((posToSave._x != lista.Last()._x)&& (posToSave._y != lista.Last()._y)
-                && (posToSave._z != lista.Last()._z))
+            PosGu posToSave = lista.ElementAt(0);
+            int i = 0;
+            while (i+1<lista.Count)
             {
                 sw.WriteLine("newpos:");
                 sw.WriteLine(posToSave._x);
                 sw.WriteLine(posToSave._y);
                 sw.WriteLine(posToSave._z);
-                listarec.Dequeue();
-                posToSave = listarec.First();
+
+                posToSave = lista.ElementAt(i + 1);
+                i++;
             }
             if (lista.Count > 0)
             {
