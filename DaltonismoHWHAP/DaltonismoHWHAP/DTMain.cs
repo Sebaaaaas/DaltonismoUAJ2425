@@ -84,7 +84,7 @@ namespace DaltonismoHWHAP
 
             //    }
             //}
-            instance.calculador.gereraResults(ref bmpAux, ref bmpAuxDeuteranopia, 3);
+            instance.calculador.generaResults(ref bmpAux, ref bmpAuxDeuteranopia, 3);
             //instance.generateHeatMap(ref bmpAux,ref instance.resultados, bmpAux.Width, bmpAux.Height, 2.3);
             bmp.Dispose();
         }

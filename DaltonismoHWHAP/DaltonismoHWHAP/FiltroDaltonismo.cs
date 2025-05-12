@@ -117,7 +117,6 @@ namespace DaltonismoHWHAP
     
         private void aplicaFiltroDaltonismo(Filtros filtro, float r, float g, float b, out float rPrime, out float gPrime, out float bPrime)
         {
-            // Apply tritanopia matrix
             rPrime = r * valoresFiltros[filtro][0, 0] + g * valoresFiltros[filtro][0, 1] + b * valoresFiltros[filtro][0, 2];
             gPrime = r * valoresFiltros[filtro][1, 0] + g * valoresFiltros[filtro][1, 1] + b * valoresFiltros[filtro][1, 2];
             bPrime = r * valoresFiltros[filtro][2, 0] + g * valoresFiltros[filtro][2, 1] + b * valoresFiltros[filtro][2, 2];
