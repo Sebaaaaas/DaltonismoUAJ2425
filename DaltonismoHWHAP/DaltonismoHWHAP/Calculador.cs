@@ -34,11 +34,13 @@ namespace DaltonismoHWHAP
          *  - 50+: Colores completamente distintos*/
         private List<double> resultadosOriginal;
         private List<double> resultadosImagenDalt;
+        private List<double> resultadosEntreImagenes;
 
         public Calculador()
         {
             resultadosOriginal = new List<double>();
             resultadosImagenDalt = new List<double>();
+            resultadosEntreImagenes = new List<double>();
         }
 
         public double deltaE(Color c1, Color c2)
@@ -278,6 +280,7 @@ namespace DaltonismoHWHAP
                     {
                         resultadosOriginal.Add(sumDeltaE / cont);
                         resultadosImagenDalt.Add(sumDeltaEDalt / cont);
+                        resultadosEntreImagenes.Add(deltaE(origen1, dalt1));
                     }
                 }
             }
@@ -300,24 +303,34 @@ namespace DaltonismoHWHAP
                     int index = y * width + x;
                     double deltaEOri = resultadosOriginal[index];
                     double deltaEDalt = resultadosImagenDalt[index];
+                    double resEntreIm = resultadosEntreImagenes[index];
+                    Color colorResultado;
 
-                    // Si la diferencia es pequeña, probablemente se vea igual para una persona daltónica
-                    if (deltaEOri>=umbral && deltaEDalt< umbral)
+                    if ((deltaEOri >= umbral && deltaEDalt < umbral * 0.5 )|| resEntreIm < 6.0)
                     {
-                        // Pixel visible claramente
-                        Color rojoTransparente = Color.FromArgb(255, 255, 0, 0);
-                        mapa.SetPixel(x, y, rojoTransparente);
-                        
-
+                        // Problema grave: se ve bien normalmente, pero mal con daltonismo
+                        colorResultado = Color.FromArgb(200, 255, 0, 0); // Rojo
+                    }
+                    else if (deltaEOri >= umbral && deltaEDalt < umbral)
+                    {
+                        // Problema medio: pérdida parcial de contraste
+                        colorResultado = Color.FromArgb(150, 255, 255, 0); // Amarillo
+                    }
+                    else if (deltaEDalt >= umbral)
+                    {
+                        // Contraste aceptable incluso para personas con daltonismo
+                        colorResultado = Color.FromArgb(100, 0, 255, 0); // Verde
                     }
                     else
                     {
-                        // Píxel poco visible, lo dejamos transparente 
-                        mapa.SetPixel(x, y, Color.Transparent);
+                        colorResultado = Color.FromArgb(150, 0, 128, 0); // Verde oscuro con opacidad 
 
                     }
+
+                    mapa.SetPixel(x, y, colorResultado);
                 }
             }
+            
 
             mapa.Save("HeatMap.png", ImageFormat.Png);
         }

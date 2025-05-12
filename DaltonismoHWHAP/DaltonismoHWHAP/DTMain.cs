@@ -45,11 +45,11 @@ namespace DaltonismoHWHAP
 
            // Bitmap bmpAuxProtanopia = (Bitmap)bmp.Clone();
             //Bitmap bmpAuxProtanomalia = (Bitmap)bmp.Clone();
-            Bitmap bmpAuxDeuteranopia = (Bitmap)bmp.Clone();
+            //Bitmap bmpAuxDeuteranopia = (Bitmap)bmp.Clone();
             //Bitmap bmpAuxDeuteranomalia = (Bitmap)bmp.Clone();
             //Bitmap bmpAuxTritanopia = (Bitmap)bmp.Clone();
             //Bitmap bmpAuxTritanomalia = (Bitmap)bmp.Clone();
-            //Bitmap bmpAuxAcromatopia = (Bitmap)bmp.Clone();
+            Bitmap bmpAuxAcromatopia = (Bitmap)bmp.Clone();
             //Bitmap bmpAuxAcromatomalia = (Bitmap)bmp.Clone();
 
             //instance.filtroDaltonismo.SimularFiltro(bmpAuxProtanopia, FiltroDaltonismo.Filtros.Protanopia);
@@ -58,8 +58,8 @@ namespace DaltonismoHWHAP
             //instance.filtroDaltonismo.SimularFiltro(bmpAuxProtanomalia, FiltroDaltonismo.Filtros.Protanomalia);
             //bmpAuxProtanomalia.Save("testImageColorblindProtanomalia.png", ImageFormat.Png);
 
-            instance.filtroDaltonismo.SimularFiltro(bmpAuxDeuteranopia, FiltroDaltonismo.Filtros.Deuteranopia);
-            bmpAuxDeuteranopia.Save("testImageColorblindDeuteranopia.png", ImageFormat.Png);
+            //instance.filtroDaltonismo.SimularFiltro(bmpAuxDeuteranopia, FiltroDaltonismo.Filtros.Deuteranopia);
+            //bmpAuxDeuteranopia.Save("testImageColorblindDeuteranopia.png", ImageFormat.Png);
 
             //instance.filtroDaltonismo.SimularFiltro(bmpAuxDeuteranomalia, FiltroDaltonismo.Filtros.Deuteranomalia);
             //bmpAuxDeuteranomalia.Save("testImageColorblindDeuteranomalia.png", ImageFormat.Png);
@@ -70,8 +70,8 @@ namespace DaltonismoHWHAP
             //instance.filtroDaltonismo.SimularFiltro(bmpAuxTritanomalia, FiltroDaltonismo.Filtros.Tritanomalia);
             //bmpAuxTritanomalia.Save("testImageColorblindTritanomalia.png", ImageFormat.Png);
 
-            //instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatopia, FiltroDaltonismo.Filtros.Acromatopia);
-            //bmpAuxAcromatopia.Save("testImageColorblindAcromatopia.png", ImageFormat.Png);
+            instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatopia, FiltroDaltonismo.Filtros.Acromatopia);
+            bmpAuxAcromatopia.Save("testImageColorblindAcromatopia.png", ImageFormat.Png);
 
             //instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatomalia, FiltroDaltonismo.Filtros.Acromatomalia);
             //bmpAuxAcromatomalia.Save("testImageColorblindAcromatomalia.png", ImageFormat.Png);
@@ -84,7 +84,7 @@ namespace DaltonismoHWHAP
 
             //    }
             //}
-            instance.calculador.generaResults(ref bmpAux, ref bmpAuxDeuteranopia, 3);
+            instance.calculador.generaResults(ref bmpAux, ref bmpAuxAcromatopia, 3);
             //instance.generateHeatMap(ref bmpAux,ref instance.resultados, bmpAux.Width, bmpAux.Height, 2.3);
             bmp.Dispose();
         }
