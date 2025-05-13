@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using UnityEngine;
 
 namespace DaltonismoHWHAP
 {
@@ -16,6 +17,7 @@ namespace DaltonismoHWHAP
         private FiltroDaltonismo filtroDaltonismo;
         private Calculador calculador;
         private SavedData savedData;
+        private ComputeShader filtersComputeShader;
        
         private DTMain()
         {            
@@ -36,6 +38,10 @@ namespace DaltonismoHWHAP
            
 
             return true;
+        }
+        public static void SetColorBlindnessComputeShaders(ComputeShader filters)
+        {
+            instance.filtersComputeShader = filters;
         }
 
         public static void captureScreen(byte[] data, int length)
@@ -115,6 +121,50 @@ namespace DaltonismoHWHAP
             //bmpAuxTritanomalia.Dispose();
             bmpAuxAcromatopia.Dispose();
             //bmpAuxAcromatomalia.Dispose();
+        }
+        public static void ProcessImageOnGPU(RenderTexture sourceImage)
+        {
+            if (instance.filtersComputeShader == null) return;
+            int kernelHandle = instance.filtersComputeShader.FindKernel("CSDeuteranopia");
+
+            RenderTexture resultTexture = new RenderTexture(sourceImage.width, sourceImage.height, 0);
+            resultTexture.enableRandomWrite = true;
+            resultTexture.Create();
+
+            instance.filtersComputeShader.SetTexture(kernelHandle, "Source", sourceImage);
+            instance.filtersComputeShader.SetTexture(kernelHandle, "Result", resultTexture);
+            instance.filtersComputeShader.SetInts("SourceTextureSize", sourceImage.width, sourceImage.height);
+
+            int threadGroupsX = Mathf.CeilToInt(sourceImage.width / 8.0f);
+            int threadGroupsY = Mathf.CeilToInt(sourceImage.height / 8.0f);
+
+            instance.filtersComputeShader.Dispatch(kernelHandle, threadGroupsX, threadGroupsY, 1);
+
+            Texture2D tex = new Texture2D(resultTexture.width, resultTexture.height, TextureFormat.RGB24, false);
+
+            RenderTexture previous = RenderTexture.active;
+            RenderTexture.active = resultTexture;
+
+            tex.ReadPixels(new Rect(0, 0, resultTexture.width, resultTexture.height), 0, 0);
+            tex.Apply();
+
+            RenderTexture.active = previous;
+
+            byte[] pngData = tex.EncodeToPNG();
+            Bitmap bmp;
+            using (MemoryStream ms = new MemoryStream(pngData, 0, pngData.Length))
+            {
+                using (Bitmap temp = new Bitmap(ms))
+                {
+                    bmp = new Bitmap(temp); // Copia profunda e independiente del MemoryStream
+                }
+            }
+            
+            bmp.Save("testImageGPU.png", ImageFormat.Png);
+            bmp.Dispose();
+
+            UnityEngine.Object.Destroy(tex);
+            resultTexture.Release();
         }
 
         public static bool readFromFile()
