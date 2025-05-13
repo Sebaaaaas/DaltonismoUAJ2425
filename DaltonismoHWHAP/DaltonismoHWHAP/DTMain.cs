@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace DaltonismoHWHAP
 {
@@ -37,11 +38,29 @@ namespace DaltonismoHWHAP
             return true;
         }
 
-        public static void captureScreen()
+        public static void captureScreen(byte[] data, int length)
         {
-            Bitmap bmp = instance.capturadorPantalla.captureScreen();
-            bmp.Save("testImage.png", ImageFormat.Png);
+
+            //main
+
+            // Crear un Bitmap completamente cargado desde los datos del stream
+            Bitmap bmp;
+            using (MemoryStream ms = new MemoryStream(data, 0, length))
+            {
+                using (Bitmap temp = new Bitmap(ms))
+                {
+                    bmp = new Bitmap(temp); // Copia profunda e independiente del MemoryStream
+                }
+            }
+
+            // Guardar la imagen original
+            bmp.Save("original_from_unity.png", ImageFormat.Png);
+
+
+            // Clonar para filtro
             Bitmap bmpAux = (Bitmap)bmp.Clone();
+            bmpAux.Save("testImage.png", ImageFormat.Png);
+
 
            // Bitmap bmpAuxProtanopia = (Bitmap)bmp.Clone();
             //Bitmap bmpAuxProtanomalia = (Bitmap)bmp.Clone();
@@ -87,6 +106,15 @@ namespace DaltonismoHWHAP
             instance.calculador.generaResults(ref bmpAux, ref bmpAuxAcromatopia, 3);
             //instance.generateHeatMap(ref bmpAux,ref instance.resultados, bmpAux.Width, bmpAux.Height, 2.3);
             bmp.Dispose();
+            bmpAux.Dispose();
+            //bmpAuxProtanopia.Dispose();
+            //bmpAuxProtanomalia.Dispose();
+            //bmpAuxDeuteranopia.Dispose();
+            //bmpAuxDeuteranomalia.Dispose();
+            //bmpAuxTritanopia.Dispose();
+            //bmpAuxTritanomalia.Dispose();
+            bmpAuxAcromatopia.Dispose();
+            //bmpAuxAcromatomalia.Dispose();
         }
 
         public static bool readFromFile()
@@ -115,6 +143,20 @@ namespace DaltonismoHWHAP
         {
             return instance.savedData.getListSize();
         }
+        public static void AnalyzeImage(byte[] data, int length)
+        {
+            // Carga la imagen directamente desde los datos en memoria
+            using (MemoryStream ms = new MemoryStream(data, 0, length))
+            using (Bitmap bmp = new Bitmap(ms))
+            {
+                Console.WriteLine($"Imagen cargada: {bmp.Width}x{bmp.Height}");
+
+
+            }
+
+
+        }
+
 
 
     }
