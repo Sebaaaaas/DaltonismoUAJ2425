@@ -286,7 +286,7 @@ namespace DaltonismoHWHAP
                 }
             }
 
-            generateHeatMap(ref original, width, height, 2.3);
+            generateHeatMap(ref original, width, height, 3);
         }
         private void generateHeatMap(ref Bitmap original, int width, int height, double umbral)
         {
@@ -311,17 +311,6 @@ namespace DaltonismoHWHAP
                     //deltaEDalt<umbral->imagen filtro, imperceptibles los cambios de color
                     //resEntreIm-> Si es pequeño no se percibe cambio de color entre la imagen original y la del filtro
 
-                    //if (/*deltaEOri < umbral && deltaEDalt < umbral && */resEntreIm < 2.0)
-                    //{
-                    //    colorResultado = Color.Transparent;
-                    //}
-
-                    //else if (resEntreIm < 2.0)
-                    //{
-                    //    // El color no cambia entre original y daltónico → potencial ambigüedad → azul
-                    //    colorResultado = Color.FromArgb(200, 0, 128, 255);
-                    //}
-
                     //Se distinguen los pixeles vecinos en la original pero no en la del filtro
                     if ((deltaEOri > umbral && deltaEDalt <= umbral * 0.5 ))
                     {
@@ -335,7 +324,7 @@ namespace DaltonismoHWHAP
                         // Problema medio: pérdida parcial de contraste
                         colorResultado = Color.FromArgb(200, 255, 255, 0); // Amarillo
                     }
-                    //Los colores en la imagen del filtro cambian y se percibe
+                    //Los colores en la imagen original y en la del filtro cambian y se percibe
                     else if (deltaEOri>umbral && deltaEDalt > umbral)
                     {
                         // Contraste aceptable incluso para personas con daltonismo
@@ -351,9 +340,16 @@ namespace DaltonismoHWHAP
                     mapa.SetPixel(x, y, colorResultado);
                 }
             }
-            
+           
 
-            mapa.Save("HeatMap.png", ImageFormat.Png);
+            mapa.Save("HeatMapProtanopia.png", ImageFormat.Png);
+            //mapa.Save("HeatMapProtanomalia.png", ImageFormat.Png);
+            //mapa.Save("HeatMapDeuteranopia.png", ImageFormat.Png);
+            //mapa.Save("HeatMapDeuteranomalia.png", ImageFormat.Png);
+            //mapa.Save("HeatMapTritanopia.png", ImageFormat.Png);
+            //mapa.Save("HeatMapTritanomalia.png", ImageFormat.Png);
+            //mapa.Save("HeatMapAcromatopia.png", ImageFormat.Png);
+            //mapa.Save("HeatMapAcromatomalia.png", ImageFormat.Png);
         }
     }
 }

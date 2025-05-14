@@ -109,13 +109,13 @@ namespace DaltonismoHWHAP
 
             //    }
             //}
-            instance.calculador.generaResults(ref bmpAux, ref bmpAuxProtanopia, 21);
+            instance.calculador.generaResults(ref bmpAux, ref bmpAuxProtanopia, 3);
             //instance.generateHeatMap(ref bmpAux,ref instance.resultados, bmpAux.Width, bmpAux.Height, 2.3);
             bmp.Dispose();
             bmpAux.Dispose();
             bmpAuxProtanopia.Dispose();
             //bmpAuxProtanomalia.Dispose();
-            //bmpAuxDeuteranopia.Dispose();
+           //bmpAuxDeuteranopia.Dispose();
             //bmpAuxDeuteranomalia.Dispose();
             //bmpAuxTritanopia.Dispose();
            // bmpAuxTritanomalia.Dispose();
