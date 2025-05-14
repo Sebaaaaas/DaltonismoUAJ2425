@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using static DaltonismoHWHAP.FiltroDaltonismo;
 
 namespace DaltonismoHWHAP
@@ -224,7 +225,7 @@ namespace DaltonismoHWHAP
         //    generateHeatMap(ref original,original.Width,original.Height,2.3);
         //}
 
-        public void generaResults(ref Bitmap original, ref Bitmap imDalt, int tamMatriz)
+        public void generaResults(ref Bitmap original, ref Bitmap imDalt, int tamMatriz, string dtType)
         {
             int width = original.Width;
             int height = original.Height;
@@ -286,9 +287,9 @@ namespace DaltonismoHWHAP
                 }
             }
 
-            generateHeatMap(ref original, width, height, 3);
+            generateHeatMap(ref original, width, height, 3, dtType);
         }
-        private void generateHeatMap(ref Bitmap original, int width, int height, double umbral)
+        private void generateHeatMap(ref Bitmap original, int width, int height, double umbral, string name)
         {
             Bitmap baseImg = original;
             Bitmap mapa = new Bitmap(width, height);
@@ -342,14 +343,8 @@ namespace DaltonismoHWHAP
             }
            
 
-            mapa.Save("HeatMapProtanopia.png", ImageFormat.Png);
-            //mapa.Save("HeatMapProtanomalia.png", ImageFormat.Png);
-            //mapa.Save("HeatMapDeuteranopia.png", ImageFormat.Png);
-            //mapa.Save("HeatMapDeuteranomalia.png", ImageFormat.Png);
-            //mapa.Save("HeatMapTritanopia.png", ImageFormat.Png);
-            //mapa.Save("HeatMapTritanomalia.png", ImageFormat.Png);
-            //mapa.Save("HeatMapAcromatopia.png", ImageFormat.Png);
-            //mapa.Save("HeatMapAcromatomalia.png", ImageFormat.Png);
+            mapa.Save("HeatMap"+ name + ".png", ImageFormat.Png);
+
         }
     }
 }
