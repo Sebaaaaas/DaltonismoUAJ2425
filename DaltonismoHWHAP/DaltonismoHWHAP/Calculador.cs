@@ -267,8 +267,9 @@ namespace DaltonismoHWHAP
                                 continue;
 
                             int idxK = k * strideO + l * 3;
+                            int idxKDalt=k * strideD + l * 3;
                             Color vecinoO = Color.FromArgb(bufferO[idxK + 2], bufferO[idxK + 1], bufferO[idxK]);
-                            Color vecinoD = Color.FromArgb(bufferD[idxK + 2], bufferD[idxK + 1], bufferD[idxK]);
+                            Color vecinoD = Color.FromArgb(bufferD[idxKDalt + 2], bufferD[idxKDalt + 1], bufferD[idxKDalt]);
 
                             sumDeltaE += deltaE(origen1, vecinoO);
                             sumDeltaEDalt += deltaE(dalt1, vecinoD);
@@ -306,25 +307,45 @@ namespace DaltonismoHWHAP
                     double resEntreIm = resultadosEntreImagenes[index];
                     Color colorResultado;
 
-                    if ((deltaEOri >= umbral && deltaEDalt < umbral * 0.5 )|| resEntreIm < 6.0)
+                    //deltaEOri< umbral ->imagen original, los pixeles son imperceptibles los cambios de color
+                    //deltaEDalt<umbral->imagen filtro, imperceptibles los cambios de color
+                    //resEntreIm-> Si es pequeño no se percibe cambio de color entre la imagen original y la del filtro
+
+                    //if (/*deltaEOri < umbral && deltaEDalt < umbral && */resEntreIm < 2.0)
+                    //{
+                    //    colorResultado = Color.Transparent;
+                    //}
+
+                    //else if (resEntreIm < 2.0)
+                    //{
+                    //    // El color no cambia entre original y daltónico → potencial ambigüedad → azul
+                    //    colorResultado = Color.FromArgb(200, 0, 128, 255);
+                    //}
+
+                    //Se distinguen los pixeles vecinos en la original pero no en la del filtro
+                    if ((deltaEOri > umbral && deltaEDalt <= umbral * 0.5 ))
                     {
                         // Problema grave: se ve bien normalmente, pero mal con daltonismo
                         colorResultado = Color.FromArgb(200, 255, 0, 0); // Rojo
                     }
-                    else if (deltaEOri >= umbral && deltaEDalt < umbral)
+
+                    //Se distinguen los pixeles vecinos en la original pero en la del filtro cuesta distinguirlos
+                    else if (deltaEOri > umbral && deltaEDalt <= umbral)
                     {
                         // Problema medio: pérdida parcial de contraste
-                        colorResultado = Color.FromArgb(150, 255, 255, 0); // Amarillo
+                        colorResultado = Color.FromArgb(200, 255, 255, 0); // Amarillo
                     }
-                    else if (deltaEDalt >= umbral)
+                    //Los colores en la imagen del filtro cambian y se percibe
+                    else if (deltaEOri>umbral && deltaEDalt > umbral)
                     {
                         // Contraste aceptable incluso para personas con daltonismo
-                        colorResultado = Color.FromArgb(100, 0, 255, 0); // Verde
+                        colorResultado = Color.FromArgb(200, 0, 255, 0); // Verde
                     }
+                    //deltaEOri no supera el umbral-> en la imagen original no cambia de color (es imperceptible)
                     else
                     {
-                        colorResultado = Color.FromArgb(150, 0, 128, 0); // Verde oscuro con opacidad 
-
+                        // colorResultado = Color.FromArgb(150, 0, 128, 0); // Verde oscuro con opacidad 
+                        colorResultado = Color.Transparent;
                     }
 
                     mapa.SetPixel(x, y, colorResultado);
