@@ -149,7 +149,7 @@ namespace DaltonismoHWHAP
             bmp.Dispose();
             bmpAux.Dispose();
         }
-        public static void ProcessImageOnGPU(RenderTexture sourceImage)
+        public static void ProcessImageOnGPU(RenderTexture sourceImage, int type)
         {
             if (instance.filtersComputeShader == null) return;
             int kernelHandle = instance.filtersComputeShader.FindKernel("CSDeuteranopia");
@@ -161,6 +161,7 @@ namespace DaltonismoHWHAP
             instance.filtersComputeShader.SetTexture(kernelHandle, "Source", sourceImage);
             instance.filtersComputeShader.SetTexture(kernelHandle, "Result", resultTexture);
             instance.filtersComputeShader.SetInts("SourceTextureSize", sourceImage.width, sourceImage.height);
+            instance.filtersComputeShader.SetInt("type", type);
 
             int threadGroupsX = Mathf.CeilToInt(sourceImage.width / 8.0f);
             int threadGroupsY = Mathf.CeilToInt(sourceImage.height / 8.0f);
@@ -186,8 +187,8 @@ namespace DaltonismoHWHAP
                     bmp = new Bitmap(temp); // Copia profunda e independiente del MemoryStream
                 }
             }
-            
-            bmp.Save("testImageGPU.png", ImageFormat.Png);
+
+            bmp.Save("testImageGPU" + type + ".png", ImageFormat.Png);
             bmp.Dispose();
 
             UnityEngine.Object.Destroy(tex);

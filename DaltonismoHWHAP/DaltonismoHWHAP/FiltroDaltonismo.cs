@@ -28,7 +28,7 @@ namespace DaltonismoHWHAP
             });
 
             valoresFiltros.Add(Filtros.Tritanomalia, new float[,] {
-                { 0.96667f, 0.3333f, 0.0f },
+                { 0.96667f, 0.03333f, 0.0f },
                 { 0.0f, 0.73333f, 0.26667f },
                 { 0.0f, 0.18333f, 0.81667f }
             });           
