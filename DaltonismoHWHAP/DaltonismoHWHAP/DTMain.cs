@@ -152,7 +152,7 @@ namespace DaltonismoHWHAP
         public static void ProcessImageOnGPU(RenderTexture sourceImage, int type)
         {
             if (instance.filtersComputeShader == null) return;
-            int kernelHandle = instance.filtersComputeShader.FindKernel("CSDeuteranopia");
+            int kernelHandle = instance.filtersComputeShader.FindKernel("CSFiltrosDaltonismo");
 
             RenderTexture resultTexture = new RenderTexture(sourceImage.width, sourceImage.height, 0);
             resultTexture.enableRandomWrite = true;
