@@ -23,7 +23,7 @@ namespace DaltonismoHWHAP
         {            
         }
 
-        public static bool Init()
+        public static bool Init(float gravedad)
         {
             // No inicializamos si ya existe una instancia
             if (instance != null)
@@ -32,7 +32,7 @@ namespace DaltonismoHWHAP
             instance = new DTMain();
 
             instance.capturadorPantalla = new CapturadorPantalla();
-            instance.filtroDaltonismo = new FiltroDaltonismo();
+            instance.filtroDaltonismo = new FiltroDaltonismo(gravedad);
             instance.calculador = new Calculador();
             instance.savedData = new SavedData();
            

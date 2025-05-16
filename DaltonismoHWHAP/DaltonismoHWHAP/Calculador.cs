@@ -35,13 +35,13 @@ namespace DaltonismoHWHAP
          *  - 50+: Colores completamente distintos*/
         private List<double> resultadosOriginal;
         private List<double> resultadosImagenDalt;
-        private List<double> resultadosEntreImagenes;
+        //private List<double> resultadosEntreImagenes;
 
         public Calculador()
         {
             resultadosOriginal = new List<double>();
             resultadosImagenDalt = new List<double>();
-            resultadosEntreImagenes = new List<double>();
+           // resultadosEntreImagenes = new List<double>();
         }
 
         public double deltaE(Color c1, Color c2)
@@ -280,14 +280,14 @@ namespace DaltonismoHWHAP
 
                     if (cont > 0)
                     {
-                        resultadosOriginal.Add(sumDeltaE / cont);
+                        resultadosOriginal.Add(sumDeltaE/cont);
                         resultadosImagenDalt.Add(sumDeltaEDalt / cont);
-                        resultadosEntreImagenes.Add(deltaE(origen1, dalt1));
+                        //resultadosEntreImagenes.Add(deltaE(origen1, dalt1));
                     }
                 }
             }
 
-            generateHeatMap(ref original, width, height, 3, dtType);
+            generateHeatMap(ref original, width, height, 4.6, dtType);
         }
         private void generateHeatMap(ref Bitmap original, int width, int height, double umbral, string name)
         {
@@ -305,7 +305,7 @@ namespace DaltonismoHWHAP
                     int index = y * width + x;
                     double deltaEOri = resultadosOriginal[index];
                     double deltaEDalt = resultadosImagenDalt[index];
-                    double resEntreIm = resultadosEntreImagenes[index];
+                 //   double resEntreIm = resultadosEntreImagenes[index];
                     Color colorResultado;
 
                     //deltaEOri< umbral ->imagen original, los pixeles son imperceptibles los cambios de color
@@ -313,7 +313,7 @@ namespace DaltonismoHWHAP
                     //resEntreIm-> Si es pequeño no se percibe cambio de color entre la imagen original y la del filtro
 
                     //Se distinguen los pixeles vecinos en la original pero no en la del filtro
-                    if ((deltaEOri > umbral && deltaEDalt <= umbral * 0.5 ))
+                    if ((deltaEOri > umbral && deltaEDalt <= umbral * 0.5))
                     {
                         // Problema grave: se ve bien normalmente, pero mal con daltonismo
                         colorResultado = Color.FromArgb(200, 255, 0, 0); // Rojo
