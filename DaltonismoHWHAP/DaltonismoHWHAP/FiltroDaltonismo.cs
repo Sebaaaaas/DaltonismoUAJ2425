@@ -16,28 +16,28 @@ namespace DaltonismoHWHAP
         public enum Filtros { Protanomalia, Deuteranomalia, Tritanomalia, Protanopia, Deuteranopia, Tritanopia, Acromatopia, Acromatomalia}
         public FiltroDaltonismo(float grav) {
 
-            //valoresFiltros.Add(Filtros.Protanomalia, new float[,] {
-            //    { 0.81667f, 0.18333f, 0.0f },
-            //    {0.33333f, 0.66667f, 0.0f },
-            //    {0.0f, 0.125f, 0.875f }
-            //});
             valoresFiltros.Add(Filtros.Protanomalia, new float[,] {
-                  { 0.856167f, 0.182038f, -0.038205f },
-                  { 0.029342f, 0.955115f, 0.015544f },
-                  { -0.002880f, -0.001563f, 1.004443f }
+                { 0.81667f, 0.18333f, 0.0f },
+                {0.33333f, 0.66667f, 0.0f },
+                {0.0f, 0.125f, 0.875f }
             });
-
-
-            //valoresFiltros.Add(Filtros.Deuteranomalia, new float[,] {
-            //    { 0.8f, 0.2f, 0.0f },
-            //    { 0.25833f, 0.74167f, 0.0f },
-            //    { 0.0f, 0.14167f, 0.85833f }
+            //valoresFiltros.Add(Filtros.Protanomalia, new float[,] {
+            //      { 0.856167f, 0.182038f, -0.038205f },
+            //      { 0.029342f, 0.955115f, 0.015544f },
+            //      { -0.002880f, -0.001563f, 1.004443f }
             //});
+
+
             valoresFiltros.Add(Filtros.Deuteranomalia, new float[,] {
-                  { 0.866435f, 0.177704f, -0.044139f },
-                  { 0.049567f, 0.939063f, 0.011370f },
-                  { -0.003453f, 0.007233f, 0.996220f }
+                { 0.8f, 0.2f, 0.0f },
+                { 0.25833f, 0.74167f, 0.0f },
+                { 0.0f, 0.14167f, 0.85833f }
             });
+            //valoresFiltros.Add(Filtros.Deuteranomalia, new float[,] {
+            //      { 0.866435f, 0.177704f, -0.044139f },
+            //      { 0.049567f, 0.939063f, 0.011370f },
+            //      { -0.003453f, 0.007233f, 0.996220f }
+            //});
 
 
             //valoresFiltros.Add(Filtros.Tritanomalia, new float[,] {

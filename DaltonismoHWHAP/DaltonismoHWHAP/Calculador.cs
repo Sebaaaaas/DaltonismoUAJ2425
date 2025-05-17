@@ -287,7 +287,7 @@ namespace DaltonismoHWHAP
                 }
             }
 
-            generateHeatMap(ref original, width, height, 4.6, dtType);
+            generateHeatMap(ref original, width, height, 2, dtType);
         }
         private void generateHeatMap(ref Bitmap original, int width, int height, double umbral, string name)
         {
