@@ -115,122 +115,13 @@ namespace DaltonismoHWHAP
             return (n > 0.008856) ? Math.Pow(n, 1.0 / 3.0) : (7.787 * n) + (16.0 / 116.0);
         }
 
-        //public void generaResults(ref Bitmap original,ref Bitmap imDalt, int tamMatriz)
-        //{
-        //    // Como los bitmap son clones, asi que podemos reutilizar algunas cosas
-
-        //    // Preparamos los bitmap. Lockbit guarda un bitmap en la memoria del sistema para poder cambiarlo programaticamente
-        //    Rectangle rect = new Rectangle(0, 0, original.Width, original.Height);
-        //    BitmapData bmpData = original.LockBits(rect, ImageLockMode.ReadWrite, original.PixelFormat);
-
-        //    Rectangle rect2 = new Rectangle(0, 0, imDalt.Width, imDalt.Height);
-        //    BitmapData bmpData2 = imDalt.LockBits(rect2, ImageLockMode.ReadWrite, imDalt.PixelFormat);
-
-        //    int bytesPerPixel = Image.GetPixelFormatSize(original.PixelFormat) / 8;
-        //    int byteCount = bmpData.Stride * original.Height;
-        //    byte[] pixels = new byte[byteCount];
-        //    byte[] pixels2 = new byte[byteCount];
-
-        //    //Cogemos la direccion base de los bitmap
-        //    IntPtr ptrFirstPixel = bmpData.Scan0;
-        //    IntPtr ptrFirstPixel2 = bmpData2.Scan0;
-
-        //    Marshal.Copy(ptrFirstPixel, pixels, 0, pixels.Length);
-        //    Marshal.Copy(ptrFirstPixel2, pixels2, 0, pixels2.Length);
-
-        //    int radius = tamMatriz / 2;
-
-        //    for (int y = 0; y < original.Height; y++)
-        //    {
-        //        int row = y * bmpData.Stride;
-        //        for (int x = 0; x < original.Width; x++)
-        //        {
-
-        //            int i = row + x * bytesPerPixel;
-
-        //            //float r = pixels[i + 2];
-        //            //float g = pixels[i + 1];
-        //            //float b = pixels[i];
-        //            //float rPrime, gPrime, bPrime;
-
-        //            Color origin1 = Color.FromArgb(pixels[i + 2], pixels[i + 1], pixels[i]);
-        //            Color origin2 = Color.FromArgb(pixels2[i + 2], pixels2[i + 1], pixels2[i]);
-
-        //            double sumDeltaE = 0;
-        //            double sumDeltaEDalt = 0;
-        //            int cont = 0;
-        //            for (int k = y - radius; k <= y + radius; k++)
-        //            {
-        //                for (int l = x - radius; l <= x + radius; l++)
-        //                {
-        //                    if (k == y && l == x || k < 0 || k >= original.Height || l < 0 || l >= original.Width)
-        //                    {
-        //                        continue;
-        //                    }
-        //                    sumDeltaE += deltaE(origin1, original.GetPixel(l, k));
-        //                    sumDeltaEDalt += deltaE(origin2, imDalt.GetPixel(l, k));
-        //                    cont++;
-        //                }
-        //            }
-        //            if (cont > 0)
-        //            {
-        //                resultadosOriginal.Add(sumDeltaE / cont);
-        //                resultadosImagenDalt.Add(sumDeltaEDalt / cont);
-        //            }
-
-        //            //pixels[i + 2] = (byte)Math.Min(255, Math.Max(0, (int)rPrime));
-        //            //pixels[i + 1] = (byte)Math.Min(255, Math.Max(0, (int)gPrime));
-        //            //pixels[i] = (byte)Math.Min(255, Math.Max(0, (int)bPrime));
-        //        }
-        //    }
-
-        //    //int radius = tamMatriz / 2;
-        //    //for (int i = 0; i < original.Height; i++)
-        //    //{
-        //    //    for (int j = 0; j < original.Width; j++)
-        //    //    {
-
-        //    //        Color origen1 = original.GetPixel(j, i);
-        //    //        Color dalt1= imDalt.GetPixel(j, i);
-        //    //        double sumDeltaE = 0;
-        //    //        double sumDeltaEDalt = 0;
-        //    //        int cont = 0;
-        //    //        for(int k=i-radius; k<=i+radius; k++)
-        //    //        {
-        //    //            for(int l = j - radius; l <= j + radius; l++)
-        //    //            {
-        //    //                if(k==i && l == j||k<0||k>=original.Height||l<0||l>=original.Width)
-        //    //                {
-        //    //                    continue;
-        //    //                }
-        //    //                sumDeltaE += deltaE(origen1, original.GetPixel(l,k));
-        //    //                sumDeltaEDalt += deltaE(dalt1, imDalt.GetPixel(l,k));
-        //    //                cont++;
-        //    //            }
-        //    //        }
-        //    //        if (cont > 0)
-        //    //        {
-        //    //            resultadosOriginal.Add(sumDeltaE / cont);
-        //    //            resultadosImagenDalt.Add(sumDeltaEDalt / cont);
-        //    //        }
-
-        //    //    }
-        //    //}
-
-        //    Marshal.Copy(pixels, 0, ptrFirstPixel, pixels.Length);
-        //    original.UnlockBits(bmpData);
-        //    Marshal.Copy(pixels2, 0, ptrFirstPixel2, pixels2.Length);
-        //    imDalt.UnlockBits(bmpData);
-
-        //    generateHeatMap(ref original,original.Width,original.Height,2.3);
-        //}
-
         public void generaResults(ref Bitmap original, ref Bitmap imDalt, int tamMatriz, string dtType, int index)
         {
             int width = original.Width;
             int height = original.Height;
             int radius = tamMatriz / 2;
 
+            // Preparamos los bitmap. Lockbit guarda un bitmap en la memoria del sistema para poder cambiarlo programaticamente
             BitmapData dataOriginal = original.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
             BitmapData dataDalt = imDalt.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
 

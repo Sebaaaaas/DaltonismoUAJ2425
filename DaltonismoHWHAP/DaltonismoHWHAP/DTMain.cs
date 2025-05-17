@@ -78,16 +78,6 @@ namespace DaltonismoHWHAP
 
             }
 
-            if (filtros["Protanomalia"])
-            {
-                Bitmap bmpAuxProtanomalia = (Bitmap)bmp.Clone();
-                instance.filtroDaltonismo.SimularFiltro(bmpAuxProtanomalia, FiltroDaltonismo.Filtros.Protanomalia);
-                bmpAuxProtanomalia.Save("testImageColorblindProtanomalia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxProtanomalia, 3, "Protanomalia", index);
-                bmpAuxProtanomalia.Dispose();
-
-            }
-
             if (filtros["Deuteranopia"])
             {
                 Bitmap bmpAuxDeuteranopia = (Bitmap)bmp.Clone();
@@ -95,16 +85,6 @@ namespace DaltonismoHWHAP
                 bmpAuxDeuteranopia.Save("testImageColorblindDeuteranopia.png", ImageFormat.Png);
                 instance.calculador.generaResults(ref bmpAux, ref bmpAuxDeuteranopia, 3, "Deuteranopia", index);
                 bmpAuxDeuteranopia.Dispose();
-
-            }
-
-            if (filtros["Deuteranomalia"])
-            {
-                Bitmap bmpAuxDeuteranomalia = (Bitmap)bmp.Clone();
-                instance.filtroDaltonismo.SimularFiltro(bmpAuxDeuteranomalia, FiltroDaltonismo.Filtros.Deuteranomalia);
-                bmpAuxDeuteranomalia.Save("testImageColorblindDeuteranomalia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxDeuteranomalia, 3, "Deuteranomalia", index);
-                bmpAuxDeuteranomalia.Dispose();
 
             }
 
@@ -118,16 +98,6 @@ namespace DaltonismoHWHAP
 
             }
 
-            if (filtros["Tritanomalia"])
-            {
-                Bitmap bmpAuxTritanomalia = (Bitmap)bmp.Clone();
-                instance.filtroDaltonismo.SimularFiltro(bmpAuxTritanomalia, FiltroDaltonismo.Filtros.Tritanomalia);
-                bmpAuxTritanomalia.Save("testImageColorblindTritanomalia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxTritanomalia, 3, "Tritanomalia", index);
-                bmpAuxTritanomalia.Dispose();
-
-            }
-
             if (filtros["Acromatopia"])
             {
                 Bitmap bmpAuxAcromatopia = (Bitmap)bmp.Clone();
@@ -138,14 +108,6 @@ namespace DaltonismoHWHAP
 
             }
 
-            if (filtros["Acromatomalia"])
-            {
-                Bitmap bmpAuxAcromatomalia = (Bitmap)bmp.Clone();
-                instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatomalia, FiltroDaltonismo.Filtros.Acromatomalia);
-                bmpAuxAcromatomalia.Save("testImageColorblindAcromatomalia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxAcromatomalia, 3, "Acromatomalia", index);
-                bmpAuxAcromatomalia.Dispose();
-            }
 
             bmp.Dispose();
             bmpAux.Dispose();
