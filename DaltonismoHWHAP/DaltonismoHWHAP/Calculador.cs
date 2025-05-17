@@ -225,7 +225,7 @@ namespace DaltonismoHWHAP
         //    generateHeatMap(ref original,original.Width,original.Height,2.3);
         //}
 
-        public void generaResults(ref Bitmap original, ref Bitmap imDalt, int tamMatriz, string dtType)
+        public void generaResults(ref Bitmap original, ref Bitmap imDalt, int tamMatriz, string dtType, int index)
         {
             int width = original.Width;
             int height = original.Height;
@@ -290,9 +290,9 @@ namespace DaltonismoHWHAP
                 }
             }
 
-            generateHeatMap(ref original, width, height, 2, dtType);
+            generateHeatMap(ref original, width, height, 2, dtType, index);
         }
-        private void generateHeatMap(ref Bitmap original, int width, int height, double umbral, string name)
+        private void generateHeatMap(ref Bitmap original, int width, int height, double umbral, string name, int i)
         {
             Bitmap baseImg = original;
             Bitmap mapa = new Bitmap(width, height);
@@ -346,7 +346,7 @@ namespace DaltonismoHWHAP
             }
            
 
-            mapa.Save("HeatMap"+ name + ".png", ImageFormat.Png);
+            mapa.Save("HeatMap"+ name + i + ".png", ImageFormat.Png);
 
         }
     }
