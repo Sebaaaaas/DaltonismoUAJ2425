@@ -47,7 +47,7 @@
     <HintPath>dependencies\UnityEngine.CoreModule.dll</HintPath>
     <Private>false</Private>
   </Reference>
-  <Reference Include="UnityEngine">
+  <Reference Include="UnityEngine.ImageConversionModule">
     <HintPath>dependencies\UnityEngine.ImageConversionModule.dll</HintPath>
     <Private>false</Private>
   </Reference>

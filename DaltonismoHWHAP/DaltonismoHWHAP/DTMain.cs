@@ -39,9 +39,10 @@ namespace DaltonismoHWHAP
 
             return true;
         }
-        public static void SetColorBlindnessComputeShaders(ComputeShader filters)
+        public static void SetColorBlindnessComputeShaders()
         {
-            instance.filtersComputeShader = filters;
+            instance.filtersComputeShader = Resources.Load<ComputeShader>("FiltrosDaltonismo");
+            if (instance.filtersComputeShader == null) Debug.Log("Error al cargar el compute shader");
         }
 
         public static void captureScreen(byte[] data, int length, Dictionary<string, bool> filtros, int index)
