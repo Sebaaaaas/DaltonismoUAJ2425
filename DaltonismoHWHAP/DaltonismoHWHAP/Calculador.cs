@@ -246,6 +246,9 @@ namespace DaltonismoHWHAP
             original.UnlockBits(dataOriginal);
             imDalt.UnlockBits(dataDalt);
 
+            resultadosOriginal.Clear();
+            resultadosImagenDalt.Clear();
+
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
