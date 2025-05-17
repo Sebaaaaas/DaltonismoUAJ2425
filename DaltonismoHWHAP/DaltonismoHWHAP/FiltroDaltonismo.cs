@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using UnityEngine;
+using System.IO;
 
 namespace DaltonismoHWHAP
 {
@@ -55,8 +57,8 @@ namespace DaltonismoHWHAP
             for (; height < bmp.Height; ++height)
                 for (width = 0; width < bmp.Width; ++width)
                 {
-                    Color pixelColor = bmp.GetPixel(width, height);
-                    bmp.SetPixel(width, height, Color.FromArgb(pixelColor.B, pixelColor.R, pixelColor.G));
+                    System.Drawing.Color pixelColor = bmp.GetPixel(width, height);
+                    bmp.SetPixel(width, height, System.Drawing.Color.FromArgb(pixelColor.B, pixelColor.R, pixelColor.G));
                 }
         }
 
@@ -100,9 +102,52 @@ namespace DaltonismoHWHAP
 
             Marshal.Copy(pixels, 0, ptrFirstPixel, pixels.Length);
             bmp.UnlockBits(bmpData);
-        }        
-        
-    
+        }
+
+        public Bitmap SimulateFilterOnGPU(RenderTexture sourceImage, ComputeShader compshader, int type)
+        {
+            int kernelHandle = compshader.FindKernel("CSFiltrosDaltonismo");
+
+            RenderTexture resultTexture = new RenderTexture(sourceImage.width, sourceImage.height, 0);
+            resultTexture.enableRandomWrite = true;
+            resultTexture.Create();
+
+            compshader.SetTexture(kernelHandle, "Source", sourceImage);
+            compshader.SetTexture(kernelHandle, "Result", resultTexture);
+            compshader.SetInts("SourceTextureSize", sourceImage.width, sourceImage.height);
+            compshader.SetInt("type", type);
+
+            int threadGroupsX = Mathf.CeilToInt(sourceImage.width / 8.0f);
+            int threadGroupsY = Mathf.CeilToInt(sourceImage.height / 8.0f);
+
+            compshader.Dispatch(kernelHandle, threadGroupsX, threadGroupsY, 1);
+
+            Texture2D tex = new Texture2D(resultTexture.width, resultTexture.height, TextureFormat.RGB24, false);
+
+            RenderTexture previous = RenderTexture.active;
+            RenderTexture.active = resultTexture;
+
+            tex.ReadPixels(new Rect(0, 0, resultTexture.width, resultTexture.height), 0, 0);
+            tex.Apply();
+
+            RenderTexture.active = previous;
+
+            byte[] pngData = tex.EncodeToPNG();
+            Bitmap bmp;
+            using (MemoryStream ms = new MemoryStream(pngData, 0, pngData.Length))
+            {
+                using (Bitmap temp = new Bitmap(ms))
+                {
+                    bmp = new Bitmap(temp);
+                }
+            }
+
+            UnityEngine.Object.Destroy(tex);
+            resultTexture.Release();
+
+            return bmp;
+        }
+
         private void aplicaFiltroDaltonismo(Filtros filtro, float r, float g, float b, out float rPrime, out float gPrime, out float bPrime)
         {
             rPrime = r * valoresFiltros[filtro][0, 0] + g * valoresFiltros[filtro][0, 1] + b * valoresFiltros[filtro][0, 2];
