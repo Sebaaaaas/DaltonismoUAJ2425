@@ -75,25 +75,31 @@ namespace DaltonismoHWHAP {
         public void writeToFile()
         {
             StreamWriter sw = new StreamWriter("PosList.txt");
-            PosGu posToSave = lista.ElementAt(0);
-            int i = 0;
-            while (i+1<lista.Count)
-            {
-                sw.WriteLine("newpos:");
-                sw.WriteLine(posToSave._x);
-                sw.WriteLine(posToSave._y);
-                sw.WriteLine(posToSave._z);
-
-                posToSave = lista.ElementAt(i + 1);
-                i++;
-            }
             if (lista.Count > 0)
             {
+                PosGu posToSave = lista.ElementAt(0);
+                int i = 0;
+                while (i + 1 < lista.Count)
+                {
+                    sw.WriteLine("newpos:");
+                    sw.WriteLine(posToSave._x);
+                    sw.WriteLine(posToSave._y);
+                    sw.WriteLine(posToSave._z);
+
+                    posToSave = lista.ElementAt(i + 1);
+                    i++;
+                }
+
                 //Last position
                 sw.WriteLine("newpos:");
                 sw.WriteLine(posToSave._x);
                 sw.WriteLine(posToSave._y);
                 sw.WriteLine(posToSave._z);
+
+            }
+            else
+            {
+                sw.WriteLine("empty");
             }
 
             sw.Close();
