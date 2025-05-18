@@ -41,7 +41,7 @@ namespace DaltonismoHWHAP
             return true;
         }
 
-        public static void GenerateImages(byte[] data, Dictionary<string, bool> filtros, int index, RenderTexture sourceImage = null)
+        public static void GenerateImages(byte[] data, Dictionary<string, bool> filtros, int index, string folderName, RenderTexture sourceImage = null)
         {
             bool useGPU = false;
             if (sourceImage != null)
@@ -84,7 +84,7 @@ namespace DaltonismoHWHAP
                     instance.filtroDaltonismo.SimularFiltro(bmpAuxProtanopia, FiltroDaltonismo.Filtros.Protanopia);
 
                 bmpAuxProtanopia.Save("testImageColorblindProtanopia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxProtanopia, 3, "Protanopia", index);
+                instance.calculador.generaResults(ref bmpAux, ref bmpAuxProtanopia, 3, "Protanopia", index, folderName);
                 bmpAuxProtanopia.Dispose();
             }
 
@@ -98,7 +98,7 @@ namespace DaltonismoHWHAP
                     instance.filtroDaltonismo.SimularFiltro(bmpAuxDeuteranopia, FiltroDaltonismo.Filtros.Deuteranopia);
 
                 bmpAuxDeuteranopia.Save("testImageColorblindDeuteranopia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxDeuteranopia, 3, "Deuteranopia", index);
+                instance.calculador.generaResults(ref bmpAux, ref bmpAuxDeuteranopia, 3, "Deuteranopia", index, folderName);
                 bmpAuxDeuteranopia.Dispose();
             }
 
@@ -112,7 +112,7 @@ namespace DaltonismoHWHAP
                     instance.filtroDaltonismo.SimularFiltro(bmpAuxTritanopia, FiltroDaltonismo.Filtros.Tritanopia);
 
                 bmpAuxTritanopia.Save("testImageColorblindTritanopia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxTritanopia, 3, "Tritanopia", index);
+                instance.calculador.generaResults(ref bmpAux, ref bmpAuxTritanopia, 3, "Tritanopia", index, folderName);
                 bmpAuxTritanopia.Dispose();
             }
 
@@ -126,7 +126,7 @@ namespace DaltonismoHWHAP
                     instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatopia, FiltroDaltonismo.Filtros.Acromatopia);
 
                 bmpAuxAcromatopia.Save("testImageColorblindAcromatopia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxAcromatopia, 3, "Acromatopia", index);
+                instance.calculador.generaResults(ref bmpAux, ref bmpAuxAcromatopia, 3, "Acromatopia", index, folderName);
                 bmpAuxAcromatopia.Dispose();
             }
 

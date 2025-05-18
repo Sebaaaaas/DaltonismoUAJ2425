@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.IO;
 using static DaltonismoHWHAP.FiltroDaltonismo;
 
 namespace DaltonismoHWHAP
@@ -115,7 +116,7 @@ namespace DaltonismoHWHAP
             return (n > 0.008856) ? Math.Pow(n, 1.0 / 3.0) : (7.787 * n) + (16.0 / 116.0);
         }
 
-        public void generaResults(ref Bitmap original, ref Bitmap imDalt, int tamMatriz, string dtType, int index)
+        public void generaResults(ref Bitmap original, ref Bitmap imDalt, int tamMatriz, string dtType, int index, string fName)
         {
             int width = original.Width;
             int height = original.Height;
@@ -181,9 +182,9 @@ namespace DaltonismoHWHAP
                 }
             }
 
-            generateHeatMap(ref original, width, height, 2, dtType, index);
+            generateHeatMap(ref original, width, height, 2, dtType, index, fName);
         }
-        private void generateHeatMap(ref Bitmap original, int width, int height, double umbral, string name, int i)
+        private void generateHeatMap(ref Bitmap original, int width, int height, double umbral, string name, int i, string folderName)
         {
             Bitmap baseImg = original;
             Bitmap mapa = new Bitmap(width, height);
@@ -235,9 +236,11 @@ namespace DaltonismoHWHAP
                     mapa.SetPixel(x, y, colorResultado);
                 }
             }
-           
 
-            mapa.Save("HeatMap"+ name + i + ".png", ImageFormat.Png);
+            string folderPath = "Heatmaps/" + folderName;
+            Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "HeatMap" + name + i + ".png");
+            mapa.Save(filePath, ImageFormat.Png);
 
         }
     }
