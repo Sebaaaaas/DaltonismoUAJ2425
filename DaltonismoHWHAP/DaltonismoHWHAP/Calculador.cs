@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.IO;
-using static DaltonismoHWHAP.FiltroDaltonismo;
 
 namespace DaltonismoHWHAP
 {
@@ -54,7 +53,7 @@ namespace DaltonismoHWHAP
             double deltaA = lab1.A - lab2.A;
             double deltaB = lab1.B - lab2.B;
 
-            return Math.Sqrt(deltaL * deltaL + deltaA * deltaA + deltaB * deltaB);
+            return deltaL * deltaL + deltaA * deltaA + deltaB * deltaB;
         }
 
         //El espacio de color CIELAB(Lab) fue diseñado para que:
@@ -141,9 +140,9 @@ namespace DaltonismoHWHAP
             resultadosOriginal.Clear();
             resultadosImagenDalt.Clear();
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++) 
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < width; x += 2)
                 {
                     int indexO = y * strideO + x * 3;
                     int indexD = y * strideD + x * 3;
@@ -193,14 +192,17 @@ namespace DaltonismoHWHAP
                 g.DrawImage(baseImg, 0, 0); // Dibuja la imagen base
             }
 
-            for (int y = 0; y < height; y++)
+            int xIndex, yIndex = 0;
+            for (int y = 0; y < height; y += 2) 
             {
-                for (int x = 0; x < width; x++)
+                xIndex = 0;
+                for (int x = 0; x < width; x += 2) 
                 {
-                    int index = y * width + x;
+                    int index = yIndex * width + xIndex;
+                    if (index < 0 || index >= resultadosOriginal.Count || index >= resultadosImagenDalt.Count) continue;
                     double deltaEOri = resultadosOriginal[index];
                     double deltaEDalt = resultadosImagenDalt[index];
-                 //   double resEntreIm = resultadosEntreImagenes[index];
+                    //   double resEntreIm = resultadosEntreImagenes[index];
                     Color colorResultado;
 
                     //deltaEOri< umbral ->imagen original, los pixeles son imperceptibles los cambios de color
@@ -208,20 +210,20 @@ namespace DaltonismoHWHAP
                     //resEntreIm-> Si es pequeño no se percibe cambio de color entre la imagen original y la del filtro
 
                     //Se distinguen los pixeles vecinos en la original pero no en la del filtro
-                    if ((deltaEOri > umbral && deltaEDalt <= umbral * 0.5))
+                    if ((deltaEOri > umbral * umbral && deltaEDalt <= umbral * umbral * 0.25))
                     {
                         // Problema grave: se ve bien normalmente, pero mal con daltonismo
                         colorResultado = Color.FromArgb(200, 255, 0, 0); // Rojo
                     }
 
                     //Se distinguen los pixeles vecinos en la original pero en la del filtro cuesta distinguirlos
-                    else if (deltaEOri > umbral && deltaEDalt <= umbral)
+                    else if (deltaEOri > umbral * umbral && deltaEDalt <= umbral * umbral)
                     {
                         // Problema medio: pérdida parcial de contraste
                         colorResultado = Color.FromArgb(200, 255, 255, 0); // Amarillo
                     }
                     //Los colores en la imagen original y en la del filtro cambian y se percibe
-                    else if (deltaEOri>umbral && deltaEDalt > umbral)
+                    else if (deltaEOri > umbral * umbral && deltaEDalt > umbral * umbral) 
                     {
                         // Contraste aceptable incluso para personas con daltonismo
                         colorResultado = Color.FromArgb(200, 0, 255, 0); // Verde
@@ -234,7 +236,12 @@ namespace DaltonismoHWHAP
                     }
 
                     mapa.SetPixel(x, y, colorResultado);
+                    if (x + 1 < width) mapa.SetPixel(x + 1, y, colorResultado);
+                    if (y + 1 < height) mapa.SetPixel(x, y + 1, colorResultado);
+                    if (x + 1 < width && y + 1 < height) mapa.SetPixel(x + 1, y + 1, colorResultado);
+                    xIndex++;
                 }
+                yIndex++;
             }
 
             string folderPath = "Heatmaps/" + folderName;
