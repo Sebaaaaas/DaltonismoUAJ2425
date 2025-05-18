@@ -93,7 +93,7 @@ namespace DaltonismoHWHAP
                 Bitmap bmpAuxDeuteranopia = (Bitmap)bmp.Clone();
 
                 if (useGPU)
-                    bmpAuxDeuteranopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 2);
+                    bmpAuxDeuteranopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 1);
                 else
                     instance.filtroDaltonismo.SimularFiltro(bmpAuxDeuteranopia, FiltroDaltonismo.Filtros.Deuteranopia);
 
@@ -107,7 +107,7 @@ namespace DaltonismoHWHAP
                 Bitmap bmpAuxTritanopia = (Bitmap)bmp.Clone();
 
                 if (useGPU)
-                    bmpAuxTritanopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 4);
+                    bmpAuxTritanopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 2);
                 else
                     instance.filtroDaltonismo.SimularFiltro(bmpAuxTritanopia, FiltroDaltonismo.Filtros.Tritanopia);
 
@@ -121,7 +121,7 @@ namespace DaltonismoHWHAP
                 Bitmap bmpAuxAcromatopia = (Bitmap)bmp.Clone();
 
                 if (useGPU)
-                    bmpAuxAcromatopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 6);
+                    bmpAuxAcromatopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 3);
                 else
                     instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatopia, FiltroDaltonismo.Filtros.Acromatopia);
 
