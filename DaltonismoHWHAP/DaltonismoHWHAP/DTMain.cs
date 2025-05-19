@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -13,7 +10,6 @@ namespace DaltonismoHWHAP
     public class DTMain
     {
         private static DTMain instance = null;
-        private CapturadorPantalla capturadorPantalla;
         private FiltroDaltonismo filtroDaltonismo;
         private Calculador calculador;
         private SavedData savedData;
@@ -24,7 +20,7 @@ namespace DaltonismoHWHAP
         {            
         }
 
-        public static bool Init(float gravedad)
+        public static bool Init()
         {
             // No inicializamos si ya existe una instancia
             if (instance != null)
@@ -32,8 +28,7 @@ namespace DaltonismoHWHAP
 
             instance = new DTMain();
 
-            instance.capturadorPantalla = new CapturadorPantalla();
-            instance.filtroDaltonismo = new FiltroDaltonismo(gravedad);
+            instance.filtroDaltonismo = new FiltroDaltonismo();
             instance.calculador = new Calculador();
             instance.savedData = new SavedData();
            
@@ -72,7 +67,6 @@ namespace DaltonismoHWHAP
 
             // Clonar para filtro
             Bitmap bmpAux = (Bitmap)bmp.Clone();
-            bmpAux.Save("testImage.png", ImageFormat.Png);
 
             if (filtros["Protanopia"])
             {
@@ -152,7 +146,7 @@ namespace DaltonismoHWHAP
         {
             instance.savedData.clearQueue();
         }
-        public static SavedData.PosGu returnValOfList(int val)
+        public static SavedData.Posicion returnValOfList(int val)
         {
             return instance.savedData.returnValueAt(val);
         }

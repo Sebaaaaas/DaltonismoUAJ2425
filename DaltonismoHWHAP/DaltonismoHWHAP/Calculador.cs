@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.IO;
 
 namespace DaltonismoHWHAP
@@ -246,7 +242,7 @@ namespace DaltonismoHWHAP
 
             string folderPath = "Heatmaps/" + folderName;
             Directory.CreateDirectory(folderPath);
-            string filePath = Path.Combine(folderPath, "HeatMap" + name + i + ".png");
+            string filePath = Path.Combine(folderPath, "HeatMap" + i + name + ".png");
             mapa.Save(filePath, ImageFormat.Png);
 
         }

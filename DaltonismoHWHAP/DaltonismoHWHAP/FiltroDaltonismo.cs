@@ -14,9 +14,8 @@ namespace DaltonismoHWHAP
     public class FiltroDaltonismo
     {        
         Dictionary<Filtros, float[,]> valoresFiltros = new Dictionary<Filtros, float[,]>();
-        float gravedad;
         public enum Filtros { Protanopia, Deuteranopia, Tritanopia, Acromatopia }
-        public FiltroDaltonismo(float grav) {
+        public FiltroDaltonismo() {
 
             
             valoresFiltros.Add(Filtros.Protanopia, new float[,] {
@@ -45,21 +44,6 @@ namespace DaltonismoHWHAP
                   { 0.299f, 0.587f, 0.114f },
                   { 0.299f, 0.587f, 0.114f }
             });
-
-
-            gravedad = grav;
-        }
-
-        // Altera el bitmap que se pasa (necesitamos una copia en el futuro, no alterar el original)
-        public void filtroTest(Bitmap bmp)
-        {
-            int height = 0, width = 0;
-            for (; height < bmp.Height; ++height)
-                for (width = 0; width < bmp.Width; ++width)
-                {
-                    System.Drawing.Color pixelColor = bmp.GetPixel(width, height);
-                    bmp.SetPixel(width, height, System.Drawing.Color.FromArgb(pixelColor.B, pixelColor.R, pixelColor.G));
-                }
         }
 
         // Version eficiente de un filtro, accedemos a memoria directamente en lugar de llamar a GetPixel/SetPixel
@@ -73,6 +57,7 @@ namespace DaltonismoHWHAP
             byte[] pixels = new byte[byteCount];
             IntPtr ptrFirstPixel = bmpData.Scan0;
 
+            // Marshal nos proporciona funciones que podemos usar para manejar memoria con mayor libertad
             Marshal.Copy(ptrFirstPixel, pixels, 0, pixels.Length);
 
             for (int y = 0; y < bmp.Height; y++)
@@ -89,10 +74,6 @@ namespace DaltonismoHWHAP
                     float rPrime, gPrime, bPrime;
 
                     aplicaFiltroDaltonismo(filtro, r, g, b, out rPrime, out gPrime, out bPrime);
-
-                    rPrime = r * (1 - gravedad) + rPrime * gravedad;
-                    gPrime = g * (1 - gravedad) + gPrime * gravedad;
-                    bPrime = b * (1 - gravedad) + bPrime * gravedad;
 
                     pixels[i + 2] = (byte)Math.Min(255, Math.Max(0, (int)rPrime));
                     pixels[i + 1] = (byte)Math.Min(255, Math.Max(0, (int)gPrime));

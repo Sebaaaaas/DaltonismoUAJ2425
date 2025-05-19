@@ -44,16 +44,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine.CoreModule">
-    <HintPath>dependencies\UnityEngine.CoreModule.dll</HintPath>
-    <Private>false</Private>
-  </Reference>
-  <Reference Include="UnityEngine.ImageConversionModule">
-    <HintPath>dependencies\UnityEngine.ImageConversionModule.dll</HintPath>
-    <Private>false</Private>
-  </Reference>
+      <HintPath>dependencies\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>dependencies\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CapturadorPantalla.cs" />
     <Compile Include="Calculador.cs" />
     <Compile Include="DTMain.cs" />
     <Compile Include="FiltroDaltonismo.cs" />
