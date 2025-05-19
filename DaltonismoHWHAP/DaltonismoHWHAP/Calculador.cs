@@ -41,7 +41,7 @@ namespace DaltonismoHWHAP
            // resultadosEntreImagenes = new List<double>();
         }
 
-        public double deltaE(Color c1, Color c2)
+        public double DeltaE(Color c1, Color c2)
         {
             LabColor lab1=RGBToLab(c1.R, c1.G, c1.B);
             LabColor lab2=RGBToLab(c2.R, c2.G, c2.B);
@@ -112,7 +112,7 @@ namespace DaltonismoHWHAP
             return (n > 0.008856) ? Math.Pow(n, 1.0 / 3.0) : (7.787 * n) + (16.0 / 116.0);
         }
 
-        public void generaResults(ref Bitmap original, ref Bitmap imDalt, int tamMatriz, string dtType, int index, string fName)
+        public void GenerateResults(ref Bitmap original, ref Bitmap imDalt, int tamMatriz, string dtType, int index, string fName)
         {
             int width = original.Width;
             int height = original.Height;
@@ -163,8 +163,8 @@ namespace DaltonismoHWHAP
                             Color vecinoO = Color.FromArgb(bufferO[idxK + 2], bufferO[idxK + 1], bufferO[idxK]);
                             Color vecinoD = Color.FromArgb(bufferD[idxKDalt + 2], bufferD[idxKDalt + 1], bufferD[idxKDalt]);
 
-                            sumDeltaE += deltaE(origen1, vecinoO);
-                            sumDeltaEDalt += deltaE(dalt1, vecinoD);
+                            sumDeltaE += DeltaE(origen1, vecinoO);
+                            sumDeltaEDalt += DeltaE(dalt1, vecinoD);
                             cont++;
                         }
                     }
@@ -178,9 +178,9 @@ namespace DaltonismoHWHAP
                 }
             }
 
-            generateHeatMap(ref original, width, height, 2, dtType, index, fName);
+            GenerateHeatMap(ref original, width, height, 2, dtType, index, fName);
         }
-        private void generateHeatMap(ref Bitmap original, int width, int height, double umbral, string name, int i, string folderName)
+        private void GenerateHeatMap(ref Bitmap original, int width, int height, double umbral, string name, int i, string folderName)
         {
             Bitmap baseImg = original;
             Bitmap mapa = new Bitmap(width, height);

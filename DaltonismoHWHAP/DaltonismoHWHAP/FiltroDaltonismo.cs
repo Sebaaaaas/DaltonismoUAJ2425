@@ -47,7 +47,7 @@ namespace DaltonismoHWHAP
         }
 
         // Version eficiente de un filtro, accedemos a memoria directamente en lugar de llamar a GetPixel/SetPixel
-        public void SimularFiltro(Bitmap bmp, Filtros filtro)
+        public void SimulateFilter(Bitmap bmp, Filtros filtro)
         {
             Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
             BitmapData bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
@@ -73,7 +73,7 @@ namespace DaltonismoHWHAP
 
                     float rPrime, gPrime, bPrime;
 
-                    aplicaFiltroDaltonismo(filtro, r, g, b, out rPrime, out gPrime, out bPrime);
+                    ApplyDaltonismFilters(filtro, r, g, b, out rPrime, out gPrime, out bPrime);
 
                     pixels[i + 2] = (byte)Math.Min(255, Math.Max(0, (int)rPrime));
                     pixels[i + 1] = (byte)Math.Min(255, Math.Max(0, (int)gPrime));
@@ -129,7 +129,7 @@ namespace DaltonismoHWHAP
             return bmp;
         }
 
-        private void aplicaFiltroDaltonismo(Filtros filtro, float r, float g, float b, out float rPrime, out float gPrime, out float bPrime)
+        private void ApplyDaltonismFilters(Filtros filtro, float r, float g, float b, out float rPrime, out float gPrime, out float bPrime)
         {
             rPrime = r * valoresFiltros[filtro][0, 0] + g * valoresFiltros[filtro][0, 1] + b * valoresFiltros[filtro][0, 2];
             gPrime = r * valoresFiltros[filtro][1, 0] + g * valoresFiltros[filtro][1, 1] + b * valoresFiltros[filtro][1, 2];

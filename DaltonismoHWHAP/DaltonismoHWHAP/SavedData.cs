@@ -18,7 +18,7 @@ namespace DaltonismoHWHAP {
         {
             lista = new Queue<Posicion>();
         }
-        public void addToQueue(float x,float y,float z)
+        public void AddToQueue(float x,float y,float z)
         {
             Posicion p;
             p._x = x;
@@ -27,13 +27,13 @@ namespace DaltonismoHWHAP {
             lista.Enqueue(p); //Si queremos hacerlo directamente es necesario System.Collections.IEnumerable 
         }
 
-        public void clearQueue()
+        public void ClearQueue()
         {
             lista.Clear();
         }
 
         // Intentamos leer de un archivo las posiciones que se quieren analizar para tenerlas guardadas. Devolvemos false si no se ha encontrado el archivo.
-        public bool readFromFile()
+        public bool ReadFromFile()
         {
             try
             {
@@ -55,7 +55,7 @@ namespace DaltonismoHWHAP {
                         nx = float.Parse(sr.ReadLine());
                         ny = float.Parse(sr.ReadLine());
                         nz = float.Parse(sr.ReadLine());
-                        addToQueue(nx, ny, nz);
+                        AddToQueue(nx, ny, nz);
                     }
 
                     //Read the next line
@@ -72,7 +72,7 @@ namespace DaltonismoHWHAP {
         }
 
         // Intentamos escribir en un archivo las posiciones que se quieren analizar para tenerlas guardadas. Devolvemos false si no se ha encontrado el archivo.
-        public bool writeToFile()
+        public bool WriteToFile()
         {
             try
             {
@@ -114,7 +114,7 @@ namespace DaltonismoHWHAP {
             }
         }
 
-        public Posicion returnValueAt(int elem)
+        public Posicion ReturnValueAt(int elem)
         {
             if (elem < lista.Count && elem >= 0)
             {
@@ -126,7 +126,7 @@ namespace DaltonismoHWHAP {
             }
         }
 
-        public int getListSize()
+        public int GetListSize()
         {
             return lista.Count;
         }
