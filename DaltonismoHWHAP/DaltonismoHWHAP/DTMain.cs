@@ -20,6 +20,10 @@ namespace DaltonismoHWHAP
         {            
         }
 
+        /// <summary>
+        /// Initializes the tool. Must be called before using this tool.
+        /// </summary>
+        /// <returns></returns>
         public static bool Init()
         {
             // No inicializamos si ya existe una instancia
@@ -35,8 +39,16 @@ namespace DaltonismoHWHAP
 
             return true;
         }
-
-        public static void GenerateImages(byte[] data, Dictionary<string, bool> filtros, int index, string folderName, RenderTexture sourceImage = null)
+        /// <summary>
+        /// Generates the simulated images and their corresponding heatmaps for the types 
+        /// of color blindness specified in the filters variable.
+        /// </summary>
+        /// <param name="data"> Array which contains the information of the PNG original image. </param>
+        /// <param name="filters"> Dictionary that specifies which types of color blindness are to be analyzed.  </param>
+        /// <param name="index"> Integer used to enumerate the different images to be analyzed. </param>
+        /// <param name="folderName"> The path where images will be saved. </param>
+        /// <param name="sourceImage"> Optional parameter to use hardware acceleration. Must include the image to be analyzed in RenderTexture format. </param>
+        public static void GenerateImages(byte[] data, Dictionary<string, bool> filters, int index, string folderName, RenderTexture sourceImage = null)
         {
             bool useGPU = false;
             if (sourceImage != null)
@@ -72,7 +84,7 @@ namespace DaltonismoHWHAP
             // Clonar para filtro
             Bitmap bmpAux = (Bitmap)bmp.Clone();
 
-            if (filtros["Protanopia"])
+            if (filters["Protanopia"])
             {
                 Bitmap bmpAuxProtanopia = (Bitmap)bmp.Clone();
 
@@ -87,7 +99,7 @@ namespace DaltonismoHWHAP
                 bmpAuxProtanopia.Dispose();
             }
 
-            if (filtros["Deuteranopia"])
+            if (filters["Deuteranopia"])
             {
                 Bitmap bmpAuxDeuteranopia = (Bitmap)bmp.Clone();
 
@@ -102,7 +114,7 @@ namespace DaltonismoHWHAP
                 bmpAuxDeuteranopia.Dispose();
             }
 
-            if (filtros["Tritanopia"])
+            if (filters["Tritanopia"])
             {
                 Bitmap bmpAuxTritanopia = (Bitmap)bmp.Clone();
 
@@ -117,7 +129,7 @@ namespace DaltonismoHWHAP
                 bmpAuxTritanopia.Dispose();
             }
 
-            if (filtros["Acromatopsia"])
+            if (filters["Acromatopsia"])
             {
                 Bitmap bmpAuxAcromatopsia = (Bitmap)bmp.Clone();
 
