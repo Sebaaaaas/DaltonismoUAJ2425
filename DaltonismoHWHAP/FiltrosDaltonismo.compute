@@ -1,0 +1,67 @@
+#pragma kernel CSFiltrosDaltonismo
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+Texture2D<float4> Source;
+RWTexture2D<float4> Result;
+int2 SourceTextureSize;
+
+// type of colorblindness:
+// 0: Protanopia
+// 1: Deuteranopia
+// 2: Tritanopia
+// 3: Acromatopsia
+int type = 0;
+
+[numthreads(8, 8, 1)]
+void CSFiltrosDaltonismo(uint3 id : SV_DispatchThreadID)
+{
+    float4 color = Source.Load(int3(id.xy, 0));
+
+    float r = color.r;
+    float g = color.g;
+    float b = color.b;
+
+    float3x3 filterMatrix;
+
+    if (type < 0 || type > 3)type = 0;
+
+    if (type == 0) { // Protanopia
+        filterMatrix = float3x3(
+            0.152, 0.114, -0.004,
+            1.052, 0.786, -0.048,
+            -0.205, 0.099, 1.052
+            );
+    }
+    else if (type == 1) { // Deuteranopia
+        filterMatrix = float3x3(
+            0.367, 0.28, -0.011,
+            0.861, 0.672, 0.043,
+            -0.228, 0.047, 0.969
+            );
+    }
+    else if (type == 2) { // Tritanopia
+        filterMatrix = float3x3(
+            1.256, -0.078, 0.005,
+            -0.078, 0.931, 0.691,
+            -0.179, 0.148, 0.304
+            );
+    }
+    else if (type == 3) { // Acromatopsia
+        filterMatrix = float3x3(
+            0.299, 0.299, 0.299,
+            0.587, 0.587, 0.587,
+            0.114, 0.114, 0.114
+            );
+    }
+
+    float3 transformed = mul(float3(r, g, b), filterMatrix);
+
+    // Voltear la imagen en el eje Y, ya que ReadPixels de Texture2D tiene
+    // el (0,0) en la esquina inferior izq mientras que PNG lo tiene en
+    // la superior izq.
+    uint2 flippedCoord = id.xy;
+    flippedCoord.y = SourceTextureSize.y - 1 - id.y;
+
+    Result[flippedCoord] = float4(transformed, color.a);
+}
