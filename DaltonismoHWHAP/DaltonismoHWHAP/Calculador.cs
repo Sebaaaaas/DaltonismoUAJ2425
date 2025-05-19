@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Reflection;
 
 namespace DaltonismoHWHAP
 {
@@ -240,7 +241,7 @@ namespace DaltonismoHWHAP
                 yIndex++;
             }
 
-            string folderPath = "Heatmaps/" + folderName;
+            string folderPath = "Analisis_Daltonismo/" + folderName + "/Captura" + i;
             Directory.CreateDirectory(folderPath);
             string filePath = Path.Combine(folderPath, "HeatMap" + i + name + ".png");
             mapa.Save(filePath, ImageFormat.Png);
