@@ -110,18 +110,18 @@ namespace DaltonismoHWHAP
                 bmpAuxTritanopia.Dispose();
             }
 
-            if (filtros["Acromatopia"])
+            if (filtros["Acromatopsia"])
             {
-                Bitmap bmpAuxAcromatopia = (Bitmap)bmp.Clone();
+                Bitmap bmpAuxAcromatopsia = (Bitmap)bmp.Clone();
 
                 if (useGPU)
-                    bmpAuxAcromatopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 3);
+                    bmpAuxAcromatopsia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 3);
                 else
-                    instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatopia, FiltroDaltonismo.Filtros.Acromatopia);
+                    instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatopsia, FiltroDaltonismo.Filtros.Acromatopsia);
 
-                bmpAuxAcromatopia.Save("testImageColorblindAcromatopia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxAcromatopia, 3, "Acromatopia", index, folderName);
-                bmpAuxAcromatopia.Dispose();
+                bmpAuxAcromatopsia.Save("testImageColorblindAcromatopsia.png", ImageFormat.Png);
+                instance.calculador.generaResults(ref bmpAux, ref bmpAuxAcromatopsia, 3, "Acromatopsia", index, folderName);
+                bmpAuxAcromatopsia.Dispose();
             }
 
             bmp.Dispose();

@@ -14,32 +14,32 @@ namespace DaltonismoHWHAP
     public class FiltroDaltonismo
     {        
         Dictionary<Filtros, float[,]> valoresFiltros = new Dictionary<Filtros, float[,]>();
-        public enum Filtros { Protanopia, Deuteranopia, Tritanopia, Acromatopia }
+        public enum Filtros { Protanopia, Deuteranopia, Tritanopia, Acromatopsia }
         public FiltroDaltonismo() {
 
-            
+            //La protanopia es la carencia de sensibilidad al color rojo
             valoresFiltros.Add(Filtros.Protanopia, new float[,] {
                   { 0.152286f, 1.052583f, -0.204868f },
                   { 0.114503f, 0.786281f, 0.099216f },
                   { -0.003882f, -0.048116f, 1.051998f }
             });
 
-            
+            //La deuteranopia es la carencia de sensibilidad al color verde
             valoresFiltros.Add(Filtros.Deuteranopia, new float[,] {
                   { 0.367322f, 0.860646f, -0.227968f },
                   { 0.280085f, 0.672501f, 0.047413f },
                   { -0.011820f, 0.042940f, 0.968881f }
             });
 
-           
+           //La tritanopia es la carencia de sensibilidad al color azul
             valoresFiltros.Add(Filtros.Tritanopia, new float[,] {
                   { 1.255528f, -0.076749f, -0.178779f },
                   { -0.078411f, 0.930809f, 0.147602f },
                   { 0.004733f, 0.691367f, 0.303900f }
             });
 
-            
-            valoresFiltros.Add(Filtros.Acromatopia, new float[,] {
+            //La acromatopsia es la ausencia de vision de todos los colores y solo se perciben los blancos, negros y grises
+            valoresFiltros.Add(Filtros.Acromatopsia, new float[,] {
                   { 0.299f, 0.587f, 0.114f },
                   { 0.299f, 0.587f, 0.114f },
                   { 0.299f, 0.587f, 0.114f }
