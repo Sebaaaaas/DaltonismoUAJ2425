@@ -84,7 +84,7 @@ namespace DaltonismoHWHAP
 
                 filePath = Path.Combine(folderPath, "testImageColorblindProtanopia.png");
                 bmpAuxProtanopia.Save(filePath, ImageFormat.Png);
-                instance.calculador.GeneraResults(ref bmpAux, ref bmpAuxProtanopia, 3, "Protanopia", index, folderName);
+                instance.calculador.GenerateResults(ref bmpAux, ref bmpAuxProtanopia, 3, "Protanopia", index, folderName);
                 bmpAuxProtanopia.Dispose();
             }
 
@@ -99,7 +99,7 @@ namespace DaltonismoHWHAP
 
                 filePath = Path.Combine(folderPath, "testImageColorblindDeuteranopia.png");
                 bmpAuxDeuteranopia.Save(folderPath, ImageFormat.Png);
-                instance.calculador.GeneraResults(ref bmpAux, ref bmpAuxDeuteranopia, 3, "Deuteranopia", index, folderName);
+                instance.calculador.GenerateResults(ref bmpAux, ref bmpAuxDeuteranopia, 3, "Deuteranopia", index, folderName);
                 bmpAuxDeuteranopia.Dispose();
             }
 
@@ -114,7 +114,7 @@ namespace DaltonismoHWHAP
 
                 filePath = Path.Combine(folderPath, "testImageColorblindTritanopia.png");
                 bmpAuxTritanopia.Save(folderPath, ImageFormat.Png);
-                instance.calculador.GeneraResults(ref bmpAux, ref bmpAuxTritanopia, 3, "Tritanopia", index, folderName);
+                instance.calculador.GenerateResults(ref bmpAux, ref bmpAuxTritanopia, 3, "Tritanopia", index, folderName);
                 bmpAuxTritanopia.Dispose();
             }
 
@@ -129,7 +129,7 @@ namespace DaltonismoHWHAP
 
                 filePath = Path.Combine(folderPath, "testImageColorblindAcromatopsia.png");
                 bmpAuxAcromatopsia.Save(folderPath, ImageFormat.Png);
-                instance.calculador.GeneraResults(ref bmpAux, ref bmpAuxAcromatopsia, 3, "Acromatopsia", index, folderName);
+                instance.calculador.GenerateResults(ref bmpAux, ref bmpAuxAcromatopsia, 3, "Acromatopsia", index, folderName);
                 bmpAuxAcromatopsia.Dispose();
             }
 

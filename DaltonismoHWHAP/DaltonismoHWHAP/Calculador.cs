@@ -243,7 +243,7 @@ namespace DaltonismoHWHAP
 
             string folderPath = "Analisis_Daltonismo/" + folderName + "/Captura" + i;
             Directory.CreateDirectory(folderPath);
-            string filePath = Path.Combine(folderPath, "HeatMap" + i + name + ".png");
+            string filePath = Path.Combine(folderPath, "HeatMap" + name + ".png");
             mapa.Save(filePath, ImageFormat.Png);
 
         }
