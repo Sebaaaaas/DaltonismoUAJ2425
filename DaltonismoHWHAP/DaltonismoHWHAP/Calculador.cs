@@ -53,7 +53,7 @@ namespace DaltonismoHWHAP
             double deltaA = lab1.A - lab2.A;
             double deltaB = lab1.B - lab2.B;
 
-            return deltaL * deltaL + deltaA * deltaA + deltaB * deltaB;
+            return Math.Sqrt(deltaL * deltaL + deltaA * deltaA + deltaB * deltaB);
         }
 
         //El espacio de color CIELAB(Lab) fue diseñado para que:
@@ -210,20 +210,20 @@ namespace DaltonismoHWHAP
                     //resEntreIm-> Si es pequeño no se percibe cambio de color entre la imagen original y la del filtro
 
                     //Se distinguen los pixeles vecinos en la original pero no en la del filtro
-                    if ((deltaEOri > umbral * umbral && deltaEDalt <= umbral * umbral * 0.25))
+                    if ((deltaEOri > umbral && deltaEDalt <= umbral * 0.5))
                     {
                         // Problema grave: se ve bien normalmente, pero mal con daltonismo
                         colorResultado = Color.FromArgb(200, 255, 0, 0); // Rojo
                     }
 
                     //Se distinguen los pixeles vecinos en la original pero en la del filtro cuesta distinguirlos
-                    else if (deltaEOri > umbral * umbral && deltaEDalt <= umbral * umbral)
+                    else if (deltaEOri > umbral  && deltaEDalt <= umbral )
                     {
                         // Problema medio: pérdida parcial de contraste
                         colorResultado = Color.FromArgb(200, 255, 255, 0); // Amarillo
                     }
                     //Los colores en la imagen original y en la del filtro cambian y se percibe
-                    else if (deltaEOri > umbral * umbral && deltaEDalt > umbral * umbral) 
+                    else if (deltaEOri > umbral  && deltaEDalt > umbral) 
                     {
                         // Contraste aceptable incluso para personas con daltonismo
                         colorResultado = Color.FromArgb(200, 0, 255, 0); // Verde
