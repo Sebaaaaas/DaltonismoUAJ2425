@@ -75,10 +75,10 @@ namespace DaltonismoHWHAP
                 if (useGPU)
                     bmpAuxProtanopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 0);
                 else
-                    instance.filtroDaltonismo.SimularFiltro(bmpAuxProtanopia, FiltroDaltonismo.Filtros.Protanopia);
+                    instance.filtroDaltonismo.SimulateFilter(bmpAuxProtanopia, FiltroDaltonismo.Filtros.Protanopia);
 
                 bmpAuxProtanopia.Save("testImageColorblindProtanopia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxProtanopia, 3, "Protanopia", index, folderName);
+                instance.calculador.GenerateResults(ref bmpAux, ref bmpAuxProtanopia, 3, "Protanopia", index, folderName);
                 bmpAuxProtanopia.Dispose();
             }
 
@@ -89,10 +89,10 @@ namespace DaltonismoHWHAP
                 if (useGPU)
                     bmpAuxDeuteranopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 1);
                 else
-                    instance.filtroDaltonismo.SimularFiltro(bmpAuxDeuteranopia, FiltroDaltonismo.Filtros.Deuteranopia);
+                    instance.filtroDaltonismo.SimulateFilter(bmpAuxDeuteranopia, FiltroDaltonismo.Filtros.Deuteranopia);
 
                 bmpAuxDeuteranopia.Save("testImageColorblindDeuteranopia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxDeuteranopia, 3, "Deuteranopia", index, folderName);
+                instance.calculador.GenerateResults(ref bmpAux, ref bmpAuxDeuteranopia, 3, "Deuteranopia", index, folderName);
                 bmpAuxDeuteranopia.Dispose();
             }
 
@@ -103,10 +103,10 @@ namespace DaltonismoHWHAP
                 if (useGPU)
                     bmpAuxTritanopia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 2);
                 else
-                    instance.filtroDaltonismo.SimularFiltro(bmpAuxTritanopia, FiltroDaltonismo.Filtros.Tritanopia);
+                    instance.filtroDaltonismo.SimulateFilter(bmpAuxTritanopia, FiltroDaltonismo.Filtros.Tritanopia);
 
                 bmpAuxTritanopia.Save("testImageColorblindTritanopia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxTritanopia, 3, "Tritanopia", index, folderName);
+                instance.calculador.GenerateResults(ref bmpAux, ref bmpAuxTritanopia, 3, "Tritanopia", index, folderName);
                 bmpAuxTritanopia.Dispose();
             }
 
@@ -117,10 +117,10 @@ namespace DaltonismoHWHAP
                 if (useGPU)
                     bmpAuxAcromatopsia = instance.filtroDaltonismo.SimulateFilterOnGPU(sourceImage, instance.filtersComputeShader, 3);
                 else
-                    instance.filtroDaltonismo.SimularFiltro(bmpAuxAcromatopsia, FiltroDaltonismo.Filtros.Acromatopsia);
+                    instance.filtroDaltonismo.SimulateFilter(bmpAuxAcromatopsia, FiltroDaltonismo.Filtros.Acromatopsia);
 
                 bmpAuxAcromatopsia.Save("testImageColorblindAcromatopsia.png", ImageFormat.Png);
-                instance.calculador.generaResults(ref bmpAux, ref bmpAuxAcromatopsia, 3, "Acromatopsia", index, folderName);
+                instance.calculador.GenerateResults(ref bmpAux, ref bmpAuxAcromatopsia, 3, "Acromatopsia", index, folderName);
                 bmpAuxAcromatopsia.Dispose();
             }
 
@@ -128,31 +128,31 @@ namespace DaltonismoHWHAP
             bmpAux.Dispose();
         }
 
-        public static bool readFromFile()
+        public static bool ReadFromFile()
         {
-            return instance.savedData.readFromFile();
+            return instance.savedData.ReadFromFile();
         }
 
-        public static void writeToFile()
+        public static void WriteToFile()
         {
-            instance.savedData.writeToFile();
+            instance.savedData.WriteToFile();
         }
 
-        public static void addPos(float x, float y, float z)
+        public static void AddPos(float x, float y, float z)
         {
-            instance.savedData.addToQueue(x, y, z);
+            instance.savedData.AddToQueue(x, y, z);
         }
         public static void ClearList()
         {
-            instance.savedData.clearQueue();
+            instance.savedData.ClearQueue();
         }
-        public static SavedData.Posicion returnValOfList(int val)
+        public static SavedData.Posicion ReturnValOfList(int val)
         {
-            return instance.savedData.returnValueAt(val);
+            return instance.savedData.ReturnValueAt(val);
         }
-        public static int listSize()
+        public static int ListSize()
         {
-            return instance.savedData.getListSize();
+            return instance.savedData.GetListSize();
         }
         public static void AnalyzeImage(byte[] data, int length)
         {
